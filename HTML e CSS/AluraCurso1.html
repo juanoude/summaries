@@ -1,0 +1,105 @@
+<!DOCTYPE HTML> <!-- Indica pro navegador que se trata da versão 5 do html -->
+<html>
+  <head>
+    <meta charset="utf-8"> <!-- é uma codificação moderna que serve para todos os idiomas -->
+    <title> Revisão html/css alurita! </title>
+    <!-- carrega a fonte Crimson Text nas versões normal, itálico e negrito -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,600">
+
+    <link rel="stylesheet" href="reset.css" /> <!-- O reset é altamente recomendável para erradicar qualquer padrão que
+    navegadores tenham antes de fazermos nossa página, e deve ser linkado antes dos outros, pois uma das regras de sobrescrita
+    é a de a regra seguinte sobrescrever a anterior  -->
+
+    <link rel="icon" href="favicon.png"> <!-- icone de favorito  -->
+    <link rel="stylesheet" href="AluraCurso1.css" />
+<!-- Ao utilizar links começando por / ele coloca o endereço logo após o domínio principal "domínio.com + '/linkrelativo...'"
+caso contrário ele parte do diretorio atual da própria página em questão "domínio.com/diretorio/atual + ../outro/diretorio". -->
+<!-- Caso o link externo e interno sejam ambos https ou http, pode-se usar apenas "//link..." -->
+
+  </head>
+  <body>
+    <h1>Itálico</h1>
+    <p>
+      <!-- i e em deixam em italico-->
+      <i>Duas formas</i> de
+      <em>Texto itálico</em>
+    </p>
+
+    <h2>Negrito</h2>
+    <p>
+      <!-- b e Strong deixam negrito -->
+      <strong>Duas formas</strong> de
+      <b>texto negrito.</b>
+    </p>
+
+    <h3>Imagem e links</h3>
+      <a href="www.bmw.com.br">Link para BMW</a>
+      <img src="imagem.jpg" alt="descrição da imagem" />
+
+      <nav> <!-- O nav é utilizado para sinalizar(html semântica) que se trata da barra de navegação -->
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Porfolio</a></li>
+          <li><a href="#">Tey Tey</a></li>
+          <li><a href="#">Chumbirimba</a></li>
+        </ul>
+      </nav>
+
+      <blockquote>
+        <p>Isso é uma citação inspiradora.</p>
+          <cite>Autor</cite>
+      </blockquote>
+
+    <main>
+      <h1> main h1 </h1>
+      Conteiner Conteúdo principal
+    </main>
+
+    <footer>
+      Conteiner Rodapé &copy;
+    </footer>
+
+    <!--Para marcar semanticamente datas e colocá-las num formato melhor para processar -->
+    <time datetime="2018-07-13">13 de julho de 2014</time>
+
+    <article>
+      Para colocar artigos.
+    </article>
+
+    <aside>
+      Para colocar algo que será float, por exemplo, barra de navegação.
+    </aside>
+
+    <div>
+      <p class="classe1"> classe 1</p>
+      <p class="classe2"> classe 2</p>
+      <p class="classe1 classe2"> classe 1 e 2</p>
+    </div>
+
+    <ul class="icones-sociais">
+    <li>
+        <a href="https://github.com/joaodasilva" class="github">
+            Github
+        </a>
+    </li>
+    <li>
+        <a href="https://twitter.com/joaodasilva" class="twitter">
+            Twitter
+        </a>
+    </li>
+    <li>
+        <a href="https://br.linkedin.com/pub/joão-da-silva/32/4/508" class="linkedin">
+            LinkedIn
+        </a>
+    </li>
+</ul>
+
+
+ </body>
+</html>
+
+<!-- Três formas de utilizar css:
+
+Pela tag <style> dentro do head </style>;
+Pelo atributo <xyz style="em qualquer tag">
+Por um arquivo .css linkado pela tag: <link rel="stylesheet" href="site.css"> -->

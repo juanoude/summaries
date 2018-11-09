@@ -1,0 +1,161 @@
+<!-- Restrictions -->
+
+    <xs:element name="age">
+      <xs:simpleType>
+        <xs:restriction base="xs:integer">
+          <xs:minInclusive value="0"/>
+          <xs:maxInclusive value="120"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:element>
+    <!-- Restringe o valor para que seja entre 0 e 120 -->
+
+    <xs:element name="car">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Audi"/>
+          <xs:enumeration value="Golf"/>
+          <xs:enumeration value="BMW"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:element>
+    <!-- Restringe o campo de valores para três possibilidades -->
+
+    <xs:element name="car" type="carType"/>
+
+    <xs:simpleType name="carType">
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="Audi"/>
+        <xs:enumeration value="Golf"/>
+        <xs:enumeration value="BMW"/>
+      </xs:restriction>
+    </xs:simpleType>
+    <!-- também pode ser escrito dessa forma -->
+
+    <xs:element name="letter">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[a-z]"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:element>
+    <!-- Restringe os valores para UMA letra MINÚSCULA de A a Z -->
+
+    <xs:element name="initials">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[A-Z][A-Z][A-Z]"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:element>
+    <!-- Restringe os valores para TRÊS letras MAIÚSCULAS de A a Z -->
+
+    <xs:element name="initials">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[a-zA-Z][a-zA-Z][a-zA-Z]"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:element>
+    <!-- Restringe os valores para TRÊS letras MAIÚSCULAS/MINÚSCULAS de A a Z -->
+
+    <xs:element name="choice">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[xyz]"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:element>
+    <!-- Restringe o campo dos valores para UMA letra dentre x, y ou z -->
+
+    <xs:element name="prodid">
+      <xs:simpleType>
+        <xs:restriction base="xs:integer">
+          <xs:pattern value="[0-9][0-9][0-9][0-9][0-9]"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:element>
+    <!-- Restringe os valores para CINCO números de 0 a 9 -->
+
+    <xs:element name="letter">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="([a-z])*"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:element>
+    <!-- Restringe os valores para ZERO ou mais letras MINÚSCULAS de A a Z -->
+
+    <xs:element name="letter">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="([a-z][A-Z])+"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:element>
+    <!-- Restringe os valores para UM ou mais pares de letras MINÚSCULAS seguidas de MAIÚCULAS de A a Z -->
+
+    <xs:element name="gender">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="male|female"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:element>
+    <!-- Restringe os valores para masculino ou feminino -->
+
+    <xs:element name="password">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[a-zA-Z0-9]{8}"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:element>
+    <!-- Restringe o campo de valores para OITO caracteres dentre MINÚSCULAS/MAIÚSCULAS de A a Z/0 a 9 -->
+
+    <xs:element name="address">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:whiteSpace value="preserve"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:element>
+    <!-- Define que os whiteSpace characters serão preservados -->
+    <!-- whiteSpace characters: line feeds, tabs, spaces, and carriage returns -->
+
+    <xs:element name="address">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:whiteSpace value="replace"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:element>
+    <!-- Define que os whiteSpace characters serão substituidos por espaços -->
+
+    <xs:element name="address">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:whiteSpace value="collapse"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:element>
+    <!-- Define que os whiteSpace characters em série serão substituidos por UM ÚNICO espaço -->
+
+    <xs:element name="password">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:length value="8"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:element>
+    <!-- Restringe o valor para ter EXATOS 8 caracteres -->
+
+    <xs:element name="password">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="5"/>
+          <xs:maxLength value="8"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:element>
+    <!-- Restringe o campo de valores para ter DENTRE 5 e 8 caracteres -->

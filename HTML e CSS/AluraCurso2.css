@@ -1,0 +1,346 @@
+/* A porcentagem no padding é sempre em relação ao elemento pai */
+.padding{
+  padding:10%; /* ou seja, 10% do seu recipiente */
+  /* Para se usar uma métrica flexível no padding baseada na fonte: */
+  padding: 1.25rem; /* corresponde a 125% do tamanho da fonte padrão do navegador */
+  padding: 1.25em; /* corresponde a 125% da fonte do elemento */
+}
+
+/* Ao se usar pixels, perde-se a fluidez, fontes fora do padrão não respondem bem */
+.pixels{
+  font-size: 30px; /* Engessado */
+  font-size: 150%; /* Flexível */
+}
+
+/* A medida em ou rem são baseadas na altura da fonte, que independe do tipo de letra */
+.ch {
+  width: 30ch; /* Para definir larguras flexíveis à família da fonte */
+} /* A medida ch é baseada na largura do caractere '0' da respectiva fonte */
+
+/* ao alterar a fonte do elemento html, para o css, é a alteração da fonte padrão do navegador */
+html{ /* ou seja, influencia o rem */
+  font-size: 200%;
+  color: white;
+} /* no body já não tem o mesmo efeito */
+
+/* A porcentagem é sempre em relação ao elemento pai, inclusive no tamanho de fonte */
+
+/* O position absolute, sempre é em relação ao primeiro elemento pai com position definido */
+.pai{
+  position: relative;
+}
+/* agora o absolute será em relação ao elemento pai */
+.filho{
+  position: absolute;
+}/* se não há nenhum, só assim, será em relação ao elemento html, página toda. */
+/* O valor 'static' é o padrão da propriedade position, portanto não aplica essa regra  */
+
+div, footer{
+  background-color: #000;
+  width: calc(50% - 10px); /* No CSS é possível calcular valores */
+  border-radius: 10px 10px;
+}
+
+.transform{
+  transform: rotate(30deg); /* rotaciona 30 graus */
+  transform: scale(1.5); /* Aumenta em 50% o elemento */
+  transform: skew(20deg); /* Entorta a caixa, transformando-a num paralelogramo */
+  transform: translate(10px, 50px); /* Desloca a caixa */
+  /* Pode-se combinar os atributos em um só transform: */
+  transform: rotate(30deg) scale(1.5) skew(20deg);/* A ordem é sempre da direita para
+  a esquerda, ou seja, a rotação será feita por último */
+} /* Transformações não funcionam em elementos inline, deve-se
+      torná-los inline-block primeiramente*/
+
+.transform3d{
+  transform: translateX() translateY() translateZ();
+  transform: perspective(); /* altera o cone de visão do usuário, a distâcia do efeito */
+  transform-style: preserve-3d; /* Ele faz com que um elemento pai transfome-se aplicando
+  outras subtransformações em elementos filhos "Para os elementos de dentro de um
+  container numa cena 3D também entrarem no cálculo da perspectiva."*/
+  perspective-origin: top; /* Muda a origem do cone de visão */
+}
+/* Ao transformar um elemento já posicionado, pode-se observar um deslocamento,
+para corrigir tal erro utilize translate(-50%,-50%) após as outras transformações */
+
+.palavras-home li {
+    font-size: 400%;
+}
+/* Ao aumentar palavras recomenda-se encolher fontes grandes para depois aumentá-las,
+assim a qualidade é preservada ao amplia-las */
+.eficiencia {
+    top: 50%;
+    left: 60%;
+    transform: translate(-50%, -50%) rotate(-5deg) translateZ(4px) scale(0.25);
+}
+
+/* Paralaxe: */
+html, body{
+  height: 100%;
+  overflow-x: hidden; /* erradicar a barra do link do twitter, pedaço da imagem saindo da borda */
+}
+body{
+  perspective: 6px;
+  perspective-origin: 50% 160px;
+}
+/* Para manter a transfomação funcionando, adicionamos preserve 3d em todos elementos acima delas
+na hierarquia, que são: ul e o header; */
+.palavras-home, .titulo-principal {
+    transform-style: preserve-3d;
+}
+
+.sombras{
+  text-shadow: 5px 5px #000;
+  box-shadow: 0 0 1em #000;
+  box-shadow: 0 0 1em #000, inset 0 0 .5em #FFF;/* Topzera em botões */
+  box-shadow: 0 0 0 5px black; /* Sombra estilo borda */
+  box-shadow: 10px 10px black, -10px -10px orange;/* Pode-se aplicar mais de uma sombra */
+}
+
+.opacidade{
+  opacity: .3;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/*Sombra do Modal */
+.modal{
+  width: 40%;
+  background-color: #FFF;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  box-shadow: 0px 0px 0px 9999px rgba(0, 0, 0, 0.75);
+}
+
+/* Degradê */
+.titulo-principal {
+    background-image: linear-gradient(to bottom, #F00, #000);/*Dois Extremos*/
+    background-image: linear-gradient(to bottom, #F00, #888, #000);/* Três cores */
+    background-image: linear-gradient(to bottom, #F00, #888 80%, #000);/*Segunda transição aos 80% */
+    /*Primeira e ultima por padrão são 0% e 100%*/
+    background-size : 100% 200px; /*Limita o tamanho do efeito*/
+    background-repeat: no-repeat; /*Após acabar, não irá repetir*/
+    background-attachment: fix  ed;/*Efeito de paralaxe, fixa a imagem ao fundo*/
+    background-position: 50% 50%; /*Posiciona em determinado local do elemento*/
+    background-position: bottom center;
+}
+
+/*Degradê circular*/
+.bora{
+  background-image: radial-gradient(yellow, red);
+  background-image: radial-gradient(circle at bottom left, yellow, red);
+  background-image: radial-gradient(circle at bottom right, yellow, yellow 20%, black 20%, black 30%, yellow 30%, yellow);
+}
+
+.elipseDoRodape{
+  background-image: radial-gradient(ellipse at left bottom,
+    rgba(60, 29, 61, 0.8),
+    rgba(60, 29, 61, 0.8) 65%,
+    black 65%,
+    black 70%,
+    transparent 70%,
+    transparent);
+  width:100%;
+  background-size: 25% 100%;
+  background-repeat: no-repeat;
+}
+
+/*Seletores avançados:*/
+li~li{
+  /*seleciona todos os lis que possuem um li antes*/
+  /*li depois de um li*/
+  color: red;
+  font-weight: bold;
+}
+hr+p{
+  /*Pega apenas o p imediatamente após a imagem*/
+  color: red;
+  font-weight: bold;
+}
+
+footer>p{ /*É aplicado apenas aos filhos, outros parentes não.*/
+  color: red;
+  font-weight: bold;
+}
+
+[href="http://www.alura.com.br"]{}
+[src$=".jpg"]{} /*Seleciona todas jpg*/
+[href^="http://"] /*Seleciona todos os links*/
+
+/* Pseudoclasses */
+:nth-child(odd) -/* linhas ímpares;*/
+:nth-child(even) - /*linhas pares;*/
+:nth-child(3) - /*terceira linha;*/
+:first-child - /*primeira linha;*/
+:last-child -/* última linha;*/
+:nth-child(xn + c) -/* Cabem formulas;*/
+tr:nth-child(odd)/*Dentre os tr*/
+blockquote:nth-of-type(even)/*Blockquotes pares*/
+
+:hover
+:focus
+:active
+:checked
+:invalid{
+  /*Se trata dos campos inválidos*/
+}
+
+/*Pseudoelementos*/
+p::first-letter{}
+blockquote:before{
+  content: '"'
+}
+blockquote::after{
+    content: '"'/*Se o content não for preenchido nada aparecerá para o usuário*/
+}
+div::before {
+    content: attr(title);/*Pega o conteúdo do atributo title*/
+} /*Para evitar conflito utiliza-se atributos customizados*/
+
+/* adicionamos essa classe aos rótulos que terão ícone */
+.com-icone::after {
+    content: ''; /* não podemos esquecer do content! */
+    width: 2em;
+    height: 2em;
+    background-color: #8C1D3D;
+    background-size: 50% 50%; /* para a imagem ter 1em x 1em */
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.com-icone {
+    position: relative;
+}
+
+.com-icone::after {
+    position: absolute;
+    top: 100%;
+    left: 0;
+}
+.com-icone + input {
+    position: relative;
+    left: 2em;
+}
+.com-icone + input {
+    width: calc(100% - 2em);
+}
+.com-icone[for="nome"]::after {
+    background-image: url(../imagens/usuario.png);
+}
+.com-icone[for="email"]::after {
+    background-image: url(../imagens/email.png);
+}
+/* função calc() traz três grandes vantagens para nosso código.
+
+A primeira é a legibilidade: podemos deixar algumas contas explícitas, facilitando o
+entendimento e a manutenção do código.
+
+A segunda é o poder: conseguimos criar layouts que não eram possíveis sem JavaScript antes,
+como elementos que ocupam um espaço que outros deixaram sobrando.
+
+A terceira é a flexibilidade: como podemos misturar unidades nas contas, conseguimos deixar
+nosso layout ainda mais flexível, com um comportamento adequado em tamanhos de tela diferentes
+e com fontes diferentes.*/
+
+table {
+    border-collapse: separate;
+    border-spacing: 5px;
+}
+
+.transition{/*Animações de transição*/
+    transition: 1s;
+    transition: transform 1s, box-shadow 2s ease-in;
+    transition-delay: 0s, 1s;
+}
+.invetendoEfeito:hover{
+    transition-delay: 1s, 0s;/*Para inverter o efeito coloca-se o delay contrário no hover*/
+}
+
+.animation{
+    animation: aparece 2s;
+    animation: quica 1s infinite;
+    animation-fill-mode: backwards;/*aplique o estilo inicial de uma animação antes mesmo de ela começar*/
+    animation-fill-mode: forwards;/*mantenha o estilo final de uma animação mesmo após ela terminar de executarr*/
+    animation-fill-mode: both;
+    animation-direction: alternate;/*alterna a direção da animação conforme é repetida*/
+    animation-timing-function: ease-in-out;
+    position: relative;
+}
+.animation:hover em {
+    animation-play-state: paused;
+}
+
+@keyframes aparece {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes quica {
+    from {
+        top: 0;
+    }
+    90% {
+        transform: rotate(-2deg);
+    }
+    95% {
+        transform: rotate(2deg);
+    }
+    to {
+        top: 1 em;
+    }
+}
+
+/*Se a transição for colocada no hover só funcionará ao mouse apontar e não ao sair*/
+
+
+
+/*Flexbox*/
+.container {
+    display: flex;/*chama o modo Flexbox*/
+    align-items: center;/*Como o flexbox estica os itens verticalmente para padronizá-los, isso apenas os
+    deixa centralizados em questão de altura e sem esticarem.*/
+    justify-content: space-between;/*Distribui entre os elementos o espaço sobrando*/
+}
+
+.box {
+    display: flex;
+    flex-direction:column;/*Organiza os items horizontalmente.*/
+    flex: 1;
+}
+.box:nth-child(2) {
+    flex: 2;/*Deixa uma das caixas o dobro de largura das outras*/
+    order: 1;/*Deixa ela em primeiro*/
+}
+.box p {
+    flex: 1;/*Deixa os paragrafos dos elementos filhos do mesmo tamanho*/
+}
+
+/*display: flex: ativa o flexbox no elemento;
+align-items: distribui verticalmente os elementos dentro de um container flex;
+justify-content: distribuir os elementos espaçadamente dentro do container;
+flex-direction: permite inverter o align-items;
+order: muda a ordem dos elementos;
+flex: indica a proporção do tamanho dos elementos. Ele é um atalho para mais três propriedades:
+flex-grow: determina quanto o elemento deve crescer;
+flex-shrink: determina quanto o elemento deve diminuir;
+flex-basis: determina o tamanho mínimo do elemento.
+O flexbox é uma dentre várias outras especificações que estão surgindo no CSS para
+facilitar nosso trabalho com layout e deixar o código mais simples.*/
+
+.portfolio {
+    display: flex;
+    flex-wrap: wrap;
+}
+.portfolio li {
+    /* não precisamos mais do display: inline-block aqui */
+    flex: 1 1 45%; /*especificando que o elemento deve crescer e diminuir na
+    mesma proporção que os outros, mas com um mínimo de 45% de largura*/
+}
+.portfolio li:first-child { /*Dando destaque ao primeiro elemento*/
+    flex-basis: 100%;
+}

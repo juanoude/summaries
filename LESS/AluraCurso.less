@@ -1,0 +1,164 @@
+/*Os navegadores atualmente só aceitam um padrão de estilos, o CSS*/
+@corpadrao: #f1bebe; // cria uma váriavel
+
+
+//Uma variável criada dentro de uma regra CSS, só estará disponível dentro dessa mesma regra.
+p {
+  @borda: #ccc;
+  border-top: 1px solid @borda;
+}
+//O escopo da variável é interno.
+h1 {
+  border-top: 1px solid @borda;
+}
+//Para criar uma variável global, basta deixá-la fora de qualquer regra CSS.
+@sou-global: #ccc;
+
+
+fade(@cor-auxiliar, 80);//cria um rgba com a variável em 80% de opacidade;
+lighten(@cor-padrao, 5);//cria uma versão mais clara da variável
+darken(@corpadrao, 5);// Escurece
+
+lessc nome-do-arquivo.less nome-do-arquivo.css//comando para compilar manualmente
+
+.mixin {
+    -webkit-border-radius: @raio-da-borda;
+    -moz-border-radius: @raio-da-borda;
+    border-radius: @raio-da-borda;
+}
+//basta colocar .nome_do_mixin no código que automaticamente ele coloca todos os comandos.
+
+.mixin2 {
+  box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.3);
+}
+
+.mixin3(@raio-da-borda: 0.3em) {//define o valor padrão e abre a possibilidade de se alterá-lo esporadicamente
+  -webkit-border-radius: @raio-da-borda;
+  -o-border-radius: @raio-da-borda;
+  border-radiu: @raio-da-borda;
+}
+.mixin3();//chamando com valor padrão
+.mixin3(5em);//chamando com valor excepcional
+
+//comentários '//' ficam apenas no less, já os '/**/' permanecem no css compilado.
+
+
+//Nesting
+.aninhamento { //simplesmente coloca-se uma tag dentro da outra, assim não precida repetir o nome da tag;
+  position: absolute;
+  right: 0;
+  top: -.5em;
+  font-size: 1.2em;
+  font-weight: lighter;
+
+    ul {
+      padding-left: 0;
+    }
+
+    li {
+      display: inline-block;
+      width: 5em;
+    }
+
+    a {
+      color: white;
+      text-decoration: none;
+
+
+        &:hover {//O uso do "&" é interessante para não repetirmos código LESS.
+          text-decoration: underline;
+        }
+    }
+}
+//aninhar muitos níveis é uma má prática
+
+
+//Pode-se dividir o arquivo em pequenas partes e importar todas para gerar um único arquivocss, assim:
+@import "variaveis";
+@import "mixins";
+@import "geral";
+@import "header";
+@import "destaque";
+@import "sobre";
+@import "planos";
+@import "blog";
+@import "contato";
+@import "footer";
+//concatenar todos os css em um único less é otimizar a performance da página,
+// deve-se colocar tudo em um único arquivo
+//Só se concatena com a extensão .less
+
+
+//Extend
+//como todos os botões tem a mesma sombra, utilizando um extend deixaria o css mais enxuto.
+.botao1{
+  ...
+  &:extend(.sombra-padrao);
+  ...
+}
+.botao2{
+  ...
+  &:extend(.sombra-padrao);
+  ...
+}
+//no css sairá assim:
+.sombra-padrao,
+.destaque button,
+.plano button,
+.contato button {
+  box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.3);
+}
+
+
+//O comando de media query fica mais organizado quando feito dentro do seletor:
+header {
+  ...
+  height: 90px;
+
+  @media (max-width: 980px) {
+    height: auto;
+  }
+}
+//No CSS ficará assim:
+/** Header **/
+header {
+  ...
+  height: 90px;
+}
+@media (max-width: 980px) {
+  header {
+    height: auto;
+  }
+}
+//Outro exemplo
+.container {
+  position: relative;
+
+  @media (max-width: 980px) {
+    position: static;
+  }
+}
+//No CSS ficará assim:
+header .container {
+  position: relative;
+}
+@media (max-width: 980px) {
+  header .container {
+    position: static;
+  }
+}
+
+
+//É possível botar string no valor de uma variável:
+@mobile: ~"(max-width: 980px)";
+
+@media @mobile{
+  ...
+}
+
+//o less faz operações matemáticas e apenas o resultado vai pro css:
+footer .container {
+  padding-top: 16 * 3px;
+  height: 16 * 6.5px;
+  position: relative;
+}

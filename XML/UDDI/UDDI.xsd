@@ -1,0 +1,84 @@
+<!--A estrutura do registro UDDI define uma hierarquia através dos elementos:
+
+. businessService: elemento filho do elemento businessEntity, descreve a função de negócio
+de um serviço. Indicadores únicos que indicam as categorias as quais o Web Service pertence
+(businessKey, serviceKey).-->
+
+01 <businessService serviceKey="uuid:D6F1B765-BDB3-4837-828D-8284301E5A2A"
+02 businessKey="uuid:C0E6D5A8-C446-4f01-99DA-70E212685A40">
+03 <name>Oi Web Service</name>
+04 <description>Eh um oi Web service</description>
+05 <bindingTemplates> … </bindingTemplates>
+06 <categoryBag />
+07 </businessService>
+
+
+<!--. businessEntity: representa o provedor de um Web Service. Apresenta dados de contato,
+categoria,  serviços oferecidos, identificadores de negócio de uma determinada
+organização / empresa.-->
+
+01 <businessEntity businessKey="uuid:C0E6D5A8-C446-4f01-99DA-70E212685A40"
+02 operator="http://www.ibm.com" authorizedName="John Doe">
+03 <name>Cia Oi</name>
+04 <description>descricao</description>
+05 <contacts>
+06 <contact useType="general info">
+07 <description>Informacoes gerais</description>
+08 <personName>Mauricio</personName>
+09 <phone>0123-4567</phone>
+10 <email>email@email.com</email>
+11 </contact>
+12 </contacts>
+13 <businessServices> … </businessServices>
+14 <identifierBag>
+15 <keyedReference TModelKey="UUID:8609D82E-FE1F-4E5B-B203-3CB14AD31423"
+16 name="D-U-N-S" value="123456" />
+17 </identifierBag>
+18 <categoryBag>
+19 <keyedReference TModelKey="UUID:C0C9FEF3-173F-414D-8A2B-5004328E5BB2"
+20 name="NAICS" value="112343" />
+21 </categoryBag>
+22 </businessEntity>
+
+
+<!--. bindingTemplate: referencia os detalhes técnicos do serviço, interface ou API.-->
+
+01 <bindingTemplate serviceKey="uuid:D6F1B765-BDB3-4837-828D-8284301E5A2A"
+02 bindingKey="uuid:C0E6D5A8-C446-4f01-99DA-70E212685A40">
+03 <description>Hello World </description>
+04 <accessPoint URLType="http">http://localhost:8080</accessPoint>
+05 <TModelInstanceDetails>
+06 <TModelInstanceInfo TModelKey="uuid:EB1B645F-CF2F-4868705F5904">
+07 <instanceDetails>
+08 <overviewDoc>
+09 <description>Descricao WSDl</description>
+10 <overviewURL>http://localhost/helloworld.wsdl</overviewURL>
+11 </overviewDoc>
+12 </instanceDetails>
+13 </TModelInstanceInfo>
+14 </TModelInstanceDetails>
+15 </bindingTemplate>
+
+
+<!-- . tModels: qualquer conceito abstrato pode ser registrado, como taxonomia, transportes,
+assinaturas digitais, etc. -->
+
+01 <TModel TModelKey="uuid:xyz987…"
+02 operator="http://www.ibm.com" authorizedName="John Doe">
+03 <name>Oi Interface Port Type</name>
+04 <description>descricao</description>
+05 <overviewDoc/>
+06 <overviewURL>http://localhost/helloworld.wsdl</overviewURL>
+07 </overviewDoc>
+08 </TModel>
+
+<!--“Em muitos casos, o tModel contém o arquivo WSDL que descreve a interface SOAP do serviço web,
+mas o tModel é flexível o suficiente para descrever quase todo tipo de serviço”.
+
+As versões 2 e 3 do UDDI adicionaram dois tipos para facilitar a afiliação dos registros, são:
+
+. publisherAssertion: cria o relacionamento entre entidades no registro.
+
+. Subscription: localiza mudanças para uma lista de entidades.
+
+A figura abaixo apresenta graficamente o modelo de dados do UDDI. -->
