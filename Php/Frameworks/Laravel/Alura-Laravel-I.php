@@ -56,6 +56,60 @@
     'strict'    => false,
   ],
 
+?>
 
+
+<?php //Aula 03
+
+//resouces/views/listagem.php ?>
+<html>
+  <body>
+    <h1>Listagem de produtos</h1>
+    <table class="table">
+      <?php foreach ($produtos as $p): ?>
+        <tr>
+          <td><?= $p->nome ?></td>
+          <td><?= $p->valor ?></td>
+          <td><?= $p->descricao ?></td>
+          <td><?= $p->quantidade ?></td>
+        </tr>
+      <?php endforeach ?>
+    </table>
+  </body>
+</html>
+
+<?php
+  namespace estoque\Http\Controllers;
+  use Illuminate\Support\Facades\DB;
+
+  class ProdutoController extends Controller {
+
+    public function lista(){
+      $produtos = DB::select('select * from produtos');
+
+      return view('listagem')->with('produtos', $produtos);
+      //view('listagem')->withProdutos($produtos); faz a mesma coisa(passa a chave na chamada);
+      //também é possivel passar um array:
+      //$data = ['id' => $id];
+      //view('listagem', $data);
+
+    }//Antigamente era View::make('listagem')->with('produtos', $produtos);
+  }
+
+  //Pode-se verificar a existência de uma view com o método exists:
+  if view()->exists('listagem'){
+    return view('listagem');
+  }
+
+  //Pode-se usar o método file para se utilizar um caminho/diretório diferente:
+  view()->file('/caminho/para/sua/view');
+
+  //Toda vez que um erro ocorre um log é criado com mais detalhes
+  //storage/logs/
+  //porém por questões de facilidade, cria-se um arquivo .env na pasta do projeto e coloca:
+  // APP_DEBUG = true
+
+  //O laravel possui um css próprio com estilos prontos que inclusive contém o bootstrap
+  <link href="/css/app.css" rel="stylesheet">
 
 ?>

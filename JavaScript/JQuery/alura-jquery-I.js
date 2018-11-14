@@ -10,6 +10,7 @@ tamanhoFrase.text(numPalavras);
 
 $("li"); //seleciona todos os li's da página
 
+
 //Aula 02
 
 <textarea class="campo-digitacao" rows="8" cols ="40"></textarea>
