@@ -288,5 +288,55 @@
   //na view:
   @extends('layout.principal')
 
-  
+
 ?>
+
+<?php //Aula 06
+  //routes
+  Route::get('/produtos/novo', 'ProdutoController@novo');
+  Route::post('/produtos/adiciona', 'ProdutoController@adiciona');
+
+  //existe um método chamado match que especifica quais métodos serão aceitos;
+  Route::match(array('GET', 'POST'), '/produtos/adiciona', 'ProdutoController@adiciona');
+
+  //controller
+  public function novo(){
+
+    return view('/produtos/novo', 'ProdutoController@novo');
+  }
+
+  public function adiciona(){
+    $nome = Request::input('nome');
+    $descricao = Request::input('descricao');
+    $valor = Request::input('valor');
+    $quantidade = Request::input('quantidade');
+
+    DB::insert('insert into produtos values(null, ?, ?, ?, ?)', array($nome, $valor, $descricao, $quantidade));
+
+    return view('/produtos/adicionado', 'ProdutoController@novo');
+  }
+?>
+
+{{-- //view --}}
+@extends('layout.principal')
+
+@section('conteudo')
+
+<h1>Novo produto</h1>
+
+<form action="/produtos/adiciona" method="post">
+
+  <input type="hidden" name="_token" value="{{csrf_token()}}" />
+
+  <label>Nome</label>
+  <input ... name="nome"/>
+  <label>Descricao</label>
+  <input ... name="descricao"/>
+  <label>Valor</label>
+  <input ... name="valor"/>
+  <label>Quantidade</label>
+  <input ... name="quantidade" type="number"/>
+  <button type="submit">Submit</button>
+</form>
+
+@stop
