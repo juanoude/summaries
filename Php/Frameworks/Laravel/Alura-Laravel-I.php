@@ -113,3 +113,180 @@
   <link href="/css/app.css" rel="stylesheet">
 
 ?>
+
+
+<?php //Aula 04
+  //link para o single: ?>
+  <!-- <a href="/produtos/mostra?id=<?=$p->id?>"> - Via GET -->
+  <a href="/produtos/mostra/<?= $p->id ?>"> <!-- Via Query Param -->
+    <span class="glyphicon glyphicon-search"></span> <!--Repare que se usa bootstrap 3-->
+  </a>
+<?php
+  //routes.php
+  Route::get('/produtos/mostra/{id}', 'ProdutoController@mostra');
+  //Tirou-se o valor default porque a sintaxe acima obriga o paramentro
+  //Para deixar opcional deve-se: {id?}
+
+
+  //Para evitar o conflito de rotas, deve-se limitar o param com uma expressão regular
+  Route::get(
+  '/produtos/mostra/{id}',
+  'ProdutoController@mostra'
+  )
+  ->where('id', '[0-9]+');
+
+
+  //ProdutoController
+  use Request;
+  //...
+  public function mostra(){
+    // $id = Request::input('id', '0');//Recupera o GET e põe um valor default;
+    $id = Request::route('id'); //pegando o query param
+    $produto = DB::select('SELECT * FROM produtos WHERE id=?', [$id]);
+    if(empty($produto)){
+      return "Esse produto não existe";
+    }
+    return view('detalhes')->with('p', $produto);
+  }
+
+  //Pode-se pegar o query param pelo parametro do método(não precisa nem importar o Request):
+  //public function mostra($id){ ...
+
+
+  //Outros recursos do Request:
+
+  if(Request::has('id')){
+    //executa caso exista o parâmetro;
+  }
+
+  $input = Request::all();//Pega todos os parâmetros;
+
+  $input = Request::only('id','nome');//Pega apenas o id e nome;
+
+  $input = Request::except('id');//Pega todos exceto o id;
+
+  $url = Request::url();//Retorna o url da request:
+  //http://localhost:8000/produtos/mostra
+
+  $uri = Request::path();//Retorna o path:
+  //produtos/mostra
+
+?>
+  <h1>Detalhes do produto: <?= $p->nome ?> </h1>
+
+ <ul>
+   <li> <b>Valor:</b> R$ <?= $p->valor ?> </li>
+   <li> <b>Descrição:</b> <?= $p->descricao ?> </li>
+   <li> <b>Quantidade em estoque:</b> <?= $p->quantidade ?> </li>
+ </ul>
+
+
+
+<?php //Aula 05
+  //Para utilizar o Blade (template engine do laravel), deve-se nomear os arquivos com .blade.php ?>
+
+  <!-- Template: -->
+  <html>
+    <head>
+        <link href="/css/app.css" rel="stylesheet">
+        <title>Controle de estoque</title>
+    </head>
+    <body>
+      <div class="container">
+
+        @yield('conteudo') <!--  -->
+
+      </div>
+    </body>
+  </html>
+
+  <!-- Página -->
+  @extends('principal')
+
+  @section('conteudo')
+  <h1>Detalhes do produto: {{$p->nome}} </h1>
+
+  <ul>
+    <li>
+      <b>Valor:</b> R$ {{$p->valor}}
+    </li>
+    <li>
+      <b>Descrição:</b> {{$p->descricao or 'Nenhuma descrição informada'}}
+    </li>
+    <li>
+      <b>Quantidade em estoque:</b> {{$p->quantidade}}
+    </li>
+  </ul>
+  @stop
+
+  <!-- Listagem -->
+  @if(empty($produtos))
+
+    <div class="alert alert-danger">
+      Você não tem nenhum produto cadastrado.
+    </div>
+
+  @else
+
+    <h1>Listagem de produtos</h1>
+    <table>
+
+      @foreach ($produtos as $p)
+        <tr class="{{$p->quantidade <=2 ? 'danger' : ''}}">
+          <td>{{ $p->nome }} </td>
+          <td>{{ $p->valor }} </td>
+          <td>{{ $p->descricao }} </td>
+          <td>{{ $p->quantidade }} </td>
+          <td>
+            <a href="/produtos/mostra/{{$p->id}}>">
+              <span class="glyphicon glyphicon-search"></span>
+            </a>
+          </td>
+        </tr>
+      @endforeach
+
+    </table>
+
+    <h4>
+      <span class="label label-danger pull-right">
+        Um ou menos itens no estoque
+      </span>
+    </h4>
+
+  @endif
+
+<?php
+  //outras formas de loop:
+  @for ($i = 0; $i < 10; $i++)
+      O indice atual é {{ $i }}
+  @endfor
+
+  @while (true)
+    Entrando em looping infinito!
+  @endwhile
+
+  @forelse($produtos as $p)//É um foreach com exceção
+    <li>{{ $p->nome }}</li>
+  @empty
+      <p>Não tem nenhum produto!</p>//Caso a lista esteja vazia
+  @endforelse
+
+  //outras formas de condicionar:
+  @unless (1 == 2)
+    Esse texto sempre será exibido!
+  @endunless
+
+  {{ condicao ? 'valor_se_true' : 'valor_se_false'}} //null coalescing
+
+  //Organizando:
+  //produto/listagem.blade.php
+  //produto/detalhes.blade.php
+  //layout/principal.blade.php
+
+  //no controller:
+  return view('produto.listagem');//return view('produto/listagem') também serve;
+  //na view:
+  @extends('layout.principal')
+
+  
+?>
