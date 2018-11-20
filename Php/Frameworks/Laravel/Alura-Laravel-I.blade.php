@@ -1,4 +1,4 @@
-<?php //Aula 01
+ <?php //Aula 01
 
   /*instalar composer
   instalar laravel -> composer global require laravel/installer (e configurar o path)
@@ -340,3 +340,42 @@
 </form>
 
 @stop
+
+
+<?php //Aula 07
+// carregar a mesma view em outro método é má prática
+return redirect('/produtos')->withInput(Request::only('nome'));//repassa parâmetros
+
+//outro exemplo
+return redirect('/usuarios')->withInput(Request::except('senha'));
+
+//outra forma de redirecionar:
+return redirect()->action('ProdutoController@lista')->withInput(Request::only('nome'));//melhor prática, pois o código não quebra quando se muda rotas.
+
+// para pegar parâmetros "ultrapassados": ?>
+@if(old('nome'))
+  <div class="alert alert-success">
+      <strong>Sucesso!</strong>
+          O produto {{ old('nome') }} foi adicionado.
+  </div>
+@endif
+
+{{-- //Boa prática para links: --}}
+<a href="{{action('ProdutoController@lista')}}"></a>
+<a href="{{action('ProdutoController@novo')}}"></a>
+
+<?php
+  //Respondendo com JSON:
+  Route::get('/produtos/json', 'ProdutoController@listaJson');
+
+  public function listaJson(){
+    $produtos = DB::select('select * from produtos');
+    return $produtos;
+    //funciona, porém para fazer explicitamente:
+    return response()->json($produtos);
+  }
+
+
+  //Respondendo com um download:
+  return response()->download($caminhoParaUmArquivo);
+?>

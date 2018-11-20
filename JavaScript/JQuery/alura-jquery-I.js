@@ -27,3 +27,20 @@ campo.on('input', function(){
   $("contador-caracteres").text(qtdCaracteres);
   $("contador-palavras").text(qtdPalavras);
 });
+
+
+//Aula 03
+
+<li><span id ="tempo-digitacao">10</span> segundos</li>
+
+var tempoRestante = $("#tempo-digitacao").text();
+campo.one('focus', function(){
+  var id = setInterval(function(){
+    tempoRestante--;
+    $("#tempo-digitacao").text(tempoRestante);
+    if(tempoRestante < 1){
+      campo.attr("disabled", true);
+      clearInterval(id);
+    }
+  }, 1000);
+});
