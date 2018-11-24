@@ -311,3 +311,151 @@
         ['only' => ['adiciona', 'remove']]);
 
 ?>
+
+
+<?php
+  //php artisan make:migration Categoria
+  class CreateCategoriasTable extends Migration {
+
+    public function up()
+    {
+      Schema::create('categorias', function(Blueprint $table)
+      {
+        $table->increments('id');
+        $table->increments('nome');
+        $table->timestamps();
+      });
+    }
+
+    public function down()
+    {
+      Schema::drop('categorias');
+    }
+  }
+
+  //php artisan migrate
+
+
+  //php artisan make:model categoria
+  class Categoria extends Model {
+    //
+  }
+
+  //Colocando as categorias no select:
+  use estoque\Categoria;
+  //...
+  public function novo(){
+    return view('formulario')->with('categorias', Categoria::all());
+  }
+  //view:
+  <div class="form-group">
+    <label>Categoria</label>
+    <select name="categoria_id" class="form-control">
+      @foreach($categorias as $c)
+      <option value="{{$c->id}}">{{$c->nome}}</option>
+      @endforeach
+    </select>
+  </div>
+
+  //No produto model
+  public function categoria(){
+    return $this->belongsTo('estoque\Categoria');
+  }
+
+  //No categoria model
+  public function produtos(){
+    return $this->hasMany('estoque\Produto');
+  }
+
+  //php artisan make:migration adiciona_relacionamento_produto_categoria
+  class AdicionaRelacionamentoProdutoCategoria extends Migration {
+
+    public function up(){
+      Schema::table('produtos', function(Blueprint $table){
+        $table->integer('categoria_id')->default(1);
+      });
+    }
+
+    public function down(){
+      Schema::table('produtos', function(Blueprint $table){
+        $table->dropColumn('categoria_id');
+      });
+    }
+  }
+  //php artisan migrate
+
+  protected $fillable = array('nome', 'descricao', 'quantidade', 'valor', 'tamanho', 'categoria_id');
+
+  //na listagem:
+  <td> {{ $p->categoria->nome }}</td>
+
+?>
+
+
+<?php //Aula 05
+  use Illuminate\Database\Seeder;
+  use Illuminate\Database\Eloquent\Model;
+  use estoque\Categoria;
+
+  class DatabaseSeeder extends Seeder {
+    public function run(){
+
+      Model::unguard();
+
+      $this->call('CategoriaTableSeeder');
+    }
+  }
+
+  class CategoriaTableSeeder extends Seeder {
+    public function run()
+    {
+      Categoria::create(['nome' => 'ELETRODOMESTICO']);
+      Categoria::create(['nome' => 'ELETRONICA']);
+      Categoria::create(['nome' => 'BRINQUEDO']);
+      Categoria::create(['nome' => 'ESPORTES']);
+    }
+  }
+
+  //php artisan db:seed
+  //php artisan db:seed --class=CategoriatableSeeder (para chamar apenas uma classe específica)
+  /* Seeds são muito usadas para popular um db com dados necessários para um ambiente de testes*/
+?>
+
+<?php //Aula 06
+  //php artisan list
+  /*lista todos os comando. O artisan aumenta muito a produtividade do desenvolvimento,
+  cria os arquivos com os imports, entre outras funcionalidades. conhecer essa ferramenta
+   é essencial para se tornar um bom desenvolvedor laravel*/
+
+  //php artisan down
+  /* desabilita o site com uma mensagem de retornaremos em breve */
+
+  //php artisan up
+  /* habilita o site novamente */
+
+  //php artisan help (comando_aqui)
+  /* exibe ajuda/descrições sobre um comando empecífico sobre seu funcionamento*/
+
+  //php artisan tinker
+  /* poderoso comando que permite que você execute classes, querys e muitas
+  outras interações com sua aplicação */
+
+  //php artisan optimize
+  /* otimiza a performance da aplicação */
+
+  //php artisan serve
+  /* sobe o servidor php de desenvolvimento */
+
+  //php artisan app:name
+  /* adiciona o namespace da aplicação */
+
+  //php artisan make:...
+  /* cria arquivos já com a estrutura básica e no local correto */
+
+  /* também é possível gerenciar o cache da aplicação e o cache de rotas
+  através do artisan. */
+
+  //php artisan route:list:
+  /*lista todas as rotas registradas. Este comando é especialmente útil!
+  Pois não precisa ler o routes completo para interpretar o cenário todo*/
+?>
