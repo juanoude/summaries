@@ -200,3 +200,102 @@ if(digitouCorreto){ // ou if (frase.startsWith(digitado)){
 }else{
   //borda vermelha
 }
+
+
+
+
+//Aula 06
+
+//dada a estrutura:
+<section class="placar">
+    <h3 class="center">Placar</h3>
+    <table class="centered bordered">
+        <thead>
+            <tr>
+                <th>Usuário</th>
+                <th>No. de palavras</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Douglas</td>
+                <td>10</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+//inserindo placar com uma string:
+function inserePlacar(){
+  var corpoTabela = $(".placar").find("tbody");
+  var usuario = "Juan";
+  var numPalavras = $("contador-palavras").text();
+  var botaoRemover = "<a href='#'><i class='small material-icons'>delete</i></a>" ;
+
+  var linha = "<tr>"+
+                "<td>" + usuario + "</td>" +
+                "<td>" + numPalavras +"</td>" +
+                "<td>" + botaoRemover + "</td>" +
+              "</tr>";
+  corpoTabela.append(linha);
+}
+
+//Para colocar no começo usa-se:
+corpoTabela.prepend(linha);
+
+//Colocando o botão remover:
+$(".botao-remover").click(function(event){
+  event.preventDefault();
+  $(this).parent().parent().remove();
+});
+
+//como não é possível atrelar eventos a strings, devemos substituí-las por um elemento:
+function novaLinha(usuario, palavras){
+  var linha = $("<tr>");
+  var colunaUsuario = $("<td>").text(usuario);
+  var colunaPalavras = $("<td>").text(palavras);
+  var colunaRemover = $("<td>");
+  var link = $("<a>").attr("href", "#");
+  var icone = $("<i>").addClass("small").addClass("material-icons").text("delete");
+
+  linha.append(colunaUsuario);
+  linha.append(colunaPalavras);
+  linha.append(colunaRemover);
+
+  colunaRemover.append(link);
+  link.append(icone);
+
+  return linha;
+}
+
+//colocando a lógica de remover em uma função:
+function removeLinha(event){
+  event.preventDefault();
+  $(this).parent().parent().remove();
+}
+
+//A função ficaria agora:
+function inserePlacar(){
+  var corpoTabela = $(".placar").find("tbody");
+  var usuario = "Douglas"
+  var numPalavras = $("#contador-palavras").text();
+  var botaoRemover = "<a href='#'><i class='small material-icons'>delete</i></a>" ;
+
+  var linha = novaLinha(usuario,numPalavras);
+  linha.find(".botao-remover").click(removeLinha);
+
+  corpoTabela.append(linha);
+}
+
+function inicializaCronometro() {
+  //...
+  if (tempoRestante < 1) {
+    //...
+    inserePlacar();
+  }
+  //...
+}
+
+/* a página de código está ficando extensa, deve-se agrupar funcões em arquivos
+categorizando-as e deixando a execução num "main.js"*/
