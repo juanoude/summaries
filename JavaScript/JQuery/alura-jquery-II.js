@@ -147,3 +147,40 @@ function fraseAleatoria() {
     $("#spinner").hide();
   });
 }
+
+
+//Aula 04
+//Dado o botão:
+<a id="botao-frase-id" class="btn-floating btn-large waves-effect waves-light cyan">
+  <i class="material-icons">repeat_one</i>
+</a>
+
+<input type="number" min="0" id="frase-id">
+
+$("#botao-frase-id").click(buscaFrase);
+
+function buscaFrase(){
+  $('#spinner').toggle();
+
+  var fraseId = $('#frase-id').val();
+  var dados = { id : fraseId }
+
+  $.get('http://localhost:3000/frases', dados, trocaFrase)
+  .fail(function(){
+    $('#erro').toggle();
+    setTimeOut(function(){
+      $('#erro').toggle();
+    }, 2000)
+  })
+  .always(function(){
+    $('#spinner').toggle();
+  });
+}
+
+function trocaFrase(data){
+  var frase = $('.frase');
+
+  frase.text(data.texto);
+  atualizaTamanhoFrase();
+  atualizaTempoInicial(data.tempo);
+}
