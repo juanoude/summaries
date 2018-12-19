@@ -237,3 +237,14 @@ $(function() {
     //...
     atualizaPlacar();
 });
+
+
+//Aula 06 - Same Origin Policy e Cross Origin Resource Sharing
+
+/*
+  Por motivos de segurança o AJAX bloqueia requisições de diferentes URL's,
+  portas e protocolos.
+
+  Para fazê-las é precisso gerar uma permissão nas configurações do servidor
+  (Acess-Control-Allow-Origin), pois o padrão é bloqueá-las.
+*/
