@@ -248,3 +248,96 @@ $(function() {
   Para fazê-las é precisso gerar uma permissão nas configurações do servidor
   (Acess-Control-Allow-Origin), pois o padrão é bloqueá-las.
 */
+
+
+//Aula 07 - Plug-ins
+
+//Slick - Plug-in de sliders
+
+<link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+//...
+<div class="slider">
+    <img src="img/slide1.png" class="imagem-jogo">
+    <img src="img/slide2.png" class="imagem-jogo">
+    <img src="img/slide3.png" class="imagem-jogo">
+</div>
+//...
+<script src="slick/slick.min.js"></script>
+
+//js/slider.js
+$(function(){
+    $(".slider").slick( {
+      dots: true,
+      infinite: true,
+      speed: 300,
+      slidesToshow: 1,
+      adaptativeHeight: true
+    } );
+});
+
+.slider {
+  height: auto;
+}
+.slick-prev:before, .slick-next:before {
+  color: black;
+}
+
+
+//criando um select interativo com Selectize:
+<link rel="stylesheet" href="css/libs/selectize.default.css">
+//...
+<div class="select-usuarios">
+ <select id="usuarios">
+    <option value="Douglas">Douglas</option>
+    <option value="Flavio">Flavio</option>
+    <option value="Nico">Nico</option>
+ </select>
+</div>
+//...
+<script src="js/selectize.js"></script>
+
+.select-usuarios{
+  display:inline-block;
+}
+#usuarios{
+  display:block;
+}
+.selectize-input {
+  width: 150px;
+  vertical-align: middle;
+}
+
+$("#usuarios").selectize({
+  create: true,
+  sortField: 'text'
+});
+
+var usuario = $("#usuarios").val();
+
+
+//Utilizando o Tooltipster
+<link rel="stylesheet" href="css/libs/tooltipster.bundle.min.css" />
+//...
+<a class="tooltip" title ="Sincronizado com Sucesso">
+  //...
+</a>
+//...
+<script src="js/tooltipster.bundle.min.js"></script>
+
+
+$(".tooltip").tooltipster({
+  trigger: "custom"
+});
+
+
+$.post("http://localhost:3000/placar", dados , function() {
+  console.log("Placar sincronizado com sucesso");
+  $(".tooltip").tooltipster("open").tooltipster("content", "Sincronizado com Sucesso");
+}).fail(function(){
+  $(".tooltip").tooltipster("open").tooltipster("content", "Falha ao Sincronizar");
+}).always(function(){
+  setTimeOut(function(){
+    $(".tooltip").tooltipster("close");
+  }, 1200);
+});
