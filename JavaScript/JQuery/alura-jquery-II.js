@@ -184,3 +184,56 @@ function trocaFrase(data){
   atualizaTamanhoFrase();
   atualizaTempoInicial(data.tempo);
 }
+
+
+//Aula 05 - Enviando dados com POST
+//Criando um botão enviar
+<a id="botao-sync" class="btn-floating btn-large waves-effect waves-light yellow">
+    <i class="material-icons">swap_vert</i>
+</a>
+
+$("#botao-sync").click(sincronizarPlacar);
+
+function sincronizarPlacar(){
+  var placar = [];
+
+  var linhas = $("tbody>tr");
+
+  linhas.each(function() {
+    var usuario = $(this).find("td:nth-child(1)").text();
+    var palavras = $(this).find("td:nth-child(2)").text();
+
+    var score = {
+      usuario: usuario,
+      palavras: palavras
+    };
+
+    placar.push(score);
+  });
+
+  var dados = {
+    placar: placar
+  };
+
+  $.post("http://localhost:3000/placar", dados, function(){
+    console.log("Placar sincronizado com sucesso");
+  });
+}
+
+
+function atualizaPlacar(){
+  $.get("http://localhost:3000/placar", function(dados){
+    $(dados).each(function(){
+      var linha = novaLinha(this.usuario, this.pontos);
+      linha.find(".botao-remover").click(removeLinha);//adicionando o evento - não seria melhor colocar dentro da função? Cheiro de má prática.
+
+      $("tbody").append(linha);
+    });
+  });
+}
+
+//executando-a na inicialização:
+$(function() {
+    //...
+    atualizaPlacar();
+});
