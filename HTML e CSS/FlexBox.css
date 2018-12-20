@@ -1,0 +1,37 @@
+/* O elemento pai (container que deve ser definido como um elemento
+flex - ele será a caixa flexível) */
+.header .container-dentro-header {
+  display: flex;
+  align-items: center; /*alinha eles verticalmente como um "vertical-align: middle;"*/
+  justify-content: space-between; /* Para justificar o conteúdo distribuindo o
+  empaço em branco entre um elemento e outro. */
+}
+
+.nav {
+  display: flex; /* Só de colocar no flex ele alinhou os elemento na mesma
+  linha como um "inline-block" */
+}
+
+/* Colocando o footer com dois elementos filhos em sincronia - um form de
+pesquisar e uma ul com logos de patrocinadores */
+.footer .container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-logos {
+  display: flex;
+  align-items: center;
+  justify-content: space-around; /* Ele distrubui o espaço em branco ao redor
+  de cada elemento */
+  width: 75%;
+}
+
+.footer-pesquisar {
+  width: 25%;
+}
+
+/* Colocando flex no pai do campo e do botão, deixa os dois no mesmo heigth*/
+.footer-fielset {
+  display: flex;
+}
