@@ -35,3 +35,18 @@ pesquisar e uma ul com logos de patrocinadores */
 .footer-fielset {
   display: flex;
 }
+
+
+/* para deixar elementos alinhados verticalmente porém com cada bloco ao lado
+do outro se faz: */
+.elemento-pai {
+  display: flex;
+  flex-direction: column; /* Isso deixa o flex na vertical */
+  flex-wrap: wrap; /* Naturalmente o flex estrapola o tamanho limitante do
+  elemento pai, com o wrap ele respeita e flui de acordo com seu tamanho. */
+  height: 250px; /* Como cada elemento tem essa altura, deixaremos o pai como
+  limitador de fluxo */
+
+  /* Um atalho para as funções flex-direction: column; e flex-wrap: wrap; */
+  flex-flow: column wrap
+}
