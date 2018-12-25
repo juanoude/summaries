@@ -50,3 +50,39 @@ do outro se faz: */
   /* Um atalho para as funções flex-direction: column; e flex-wrap: wrap; */
   flex-flow: column wrap
 }
+
+
+/* Dada uma lista de cursos com imagens e nomes em uma ul, para ordená-los: */
+.conteudo-principal-cursos {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Quando se dispõe elementos em grid, o justify content nos últimos elementos
+fica esquisito. Portanto tem que fechar a conta com margens e tamanhos. */
+.conteudoPrincipal-cursos-elementos {
+  width: 23%;
+  margin: 1%;
+}
+
+/* Para retirar a margem do primeiro e ultimo elemento de cada linha: */
+.conteudoPrincipal-cursos-elementos: nth-child(4n) {
+  margin-right: 0;
+}
+
+/* Funciona até no primeiro elemento, pois ao interpretar o n o computador tenta
+todos os valores, inclusive o 0. */
+.conteudoPrincipal-cursos-elementos: nth-child(4n + 1) {
+  margin-left: 0;
+}
+
+/* Quando trocamos o flex-direction o align-items e justify-content trocam seu
+eixo */
+.nav-principal-mobile {
+  flex-direction:column;
+  align-items: initial;
+  /* Quando se coloca align-items: center; as linhas do menu fica na mesma
+  largura do título, portanto usando apenas o text-align: center deixa os
+  elementos mais largos e os items do menu centralizados. */
+  text-align: center;
+}
