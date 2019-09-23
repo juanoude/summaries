@@ -142,8 +142,8 @@
   public function mostra(){
     // $id = Request::input('id', '0');//Recupera o GET e põe um valor default;
     $id = Request::route('id'); //pegando o query param
-    $produto = DB::select('SELECT * FROM produtos WHERE id=?', [$id]);
-    if(empty($produto)){
+    $produto = DB::select('SELECT * FROM produtos WHERE id = ?', [$id]);
+    if(empty($produto)) {
       return "Esse produto não existe";
     }
     return view('detalhes')->with('p', $produto);
