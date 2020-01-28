@@ -76,13 +76,71 @@ todos os valores, inclusive o 0. */
   margin-left: 0;
 }
 
-/* Quando trocamos o flex-direction o align-items e justify-content trocam seu
-eixo */
-.nav-principal-mobile {
-  flex-direction:column;
-  align-items: initial;
-  /* Quando se coloca align-items: center; as linhas do menu fica na mesma
-  largura do título, portanto usando apenas o text-align: center deixa os
-  elementos mais largos e os items do menu centralizados. */
-  text-align: center;
+
+/* Depois de 768 px é interessante que a aparência deixe de ser a do Tablet e
+volte a ser a de Desktop. Normalmente o que altera do desktop para o mobile é
+o flex-diretion e o width dos elementos. */
+@media(max-width: 768px) {
+  /* Quando trocamos o flex-direction o align-items e justify-content trocam seu
+  eixo */
+  .nav-principal-mobile {
+    flex-direction:column;
+    align-items: initial;
+    /* Quando se coloca align-items: center; as linhas do menu fica na mesma
+    largura do título, portanto usando apenas o text-align: center deixa os
+    elementos mais largos e os items do menu centralizados. */
+    text-align: center;
+  }
+
+  .conteudoPrincipal-cursos-mobile{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .conteudoPrincipal-cursos-mobile-items {
+    width:100%;
+  }
+
+  .rodape-Principal-lista {
+    height: auto;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-logos {
+    margin: 0;
+    width: 100%;
+  }
+
+  .footer-form {
+    width: 100%;
+  }
+
+  .footer-fieldset {
+    justify-content: center;
+  }
+}
+
+
+/* O elemento order decide a ordem dos elementos flex, sem precisar mudar o
+html, por padrão todos elementos são order = 0 */
+.elemento-filho {
+  order: -1; /* o valor menor aparece primeiro */
+}
+
+
+/* O elemento flex-grow pega o espaço vazio e estica a caixa do elemento incorporando-o.
+Em outras palavras ele espande a caixa de modo a cobrir o espaço vazio. Caso tenha dois
+elementos com flex-grow ele divide o espaço de acordo com a soma dos valores e distrubui
+proporcionalmente */
+.elemento-filho {
+  flex-grow: 2;
+}
+/* Nesse caso ele dividiria o espaço em 5 partes dando 2 ao filho acima e 3 ao filho
+abaixo */
+.outro-filho {
+  flex-grow: 3;
 }
