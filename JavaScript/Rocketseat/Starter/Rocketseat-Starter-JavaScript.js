@@ -278,4 +278,17 @@ minhaPromise()
   .catch(function(error){ //o catch é ligado ao reject
     console.warn(error);
   });
-  
+
+
+//AXIOS
+//Ao utilizarmos a biblioteca axios no nosso código
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+//A requisição AJAX ficaria assim:
+axios.get('http://api.github.com/users/diego3g')
+  .then(function (response) {
+    console.log(response);//ele não devolve apenas os dados, mas o objeto com todos metadados.
+    //também não é necessario fazer o parse, pois já vem em um objeto javascript
+  })
+  .catch(function (error){
+    console.log(error);
+  });
