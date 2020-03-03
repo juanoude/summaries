@@ -93,3 +93,14 @@ export default new App().server;
   //basta dar play novamente.
   "protocol": "inspector"
 }
+
+//Instalar o docker
+//docker run --name database -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
+//docker ps (lista todos os containers)
+//docket ps -a (all containers)
+//docker run <nome>
+//docker logs <name>
+
+//faremos o download do postbird para interface gráfica do postgres
+//localhost 5432
+//criaremos o database, e o resto será feito pela própria aplicação.
