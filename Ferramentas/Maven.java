@@ -11,7 +11,7 @@ mvn archetype:generate -DartifactId=produtos -DgroupId=br.com.alura.maven -Dinte
 
 mvn compile //Compila o código fonte para o target
 
-mvn teste //Roda as classes de teste
+mvn test //Roda as classes de teste
 
 pom.xml //É o modelo do projeto, configura tudo a respeito do projeto e aponta todas as dependências
 
@@ -226,3 +226,96 @@ new CPF("2222222222").isValido();
 //Para empacotar sabemos que é o comando package, executamos via cmd/eclipse e pronto,
 //teremos nosso arquivo empacotado e pronto para uso, repare que tanto o jar quanto o war
 //são zips, ao deszipá-los obtemos a estrutura de pastas e arquivos do projeto.
+
+
+//=============
+//A tag <scope> define o escopo da dependência, são eles:
+
+//Compile - É o escopo default - disponível em todos os classpaths de um projeto. São propagadas aos projetos dependentes.
+//o pacote é considerado na compilação. Se houver empacotamento, a dependência é inclusa no pacote.
+
+//Provided - Similar ao complile, mas espera que a JDK ou um container disponibilizará a dependencia em tempo de execução.
+//O pacote é considerado na compilação, mas não é incluso no pacote se houver empacotamento.
+
+//runtime - Indica que a dependencia não é requerida para a compilação, mas para a execução.
+//Indica que a dependência não precisa estar na compilação, mas precisa estar na execução.
+
+//test - Indica que a dependencia não é requerida no uso normal da aplicação. Só é disponivel para a compilação de testes
+// e para a fase de execução. Indica que a dependência é usada apenas na fase de testes.
+
+//system -  Esse escopo é similar ao provided exceto que deve-se prover o JAR que o contém explicitamente. O artefato
+//O artefato está sempre disponível e não será procurado em um repositório. Semelhante ao provided, mas para JARs.
+//Os JARs precisam ser especificados explicitamente.
+
+//import - É somente disponível em dependencias do tipo 'pom' na seção <dependencyManagement>. Indica a substituição da
+//dependencia na lista especificada na POM.
+//==============
+
+//Repare que as classes de escopo teste não aparecem no arquivo final.
+//Adicionaremos um outro projeto nosso como dependência:
+<dependency>
+    <groupId>br.com.alura.maven</groupId>
+    <artifactId>produtos</artifactId>
+    <version>1.0-SNAPSHOT</version>
+</dependency>
+
+//dessa forma, lojaweb e produtos são interdependentes, e quando um for "buildado"
+//será necessário o arquivo .jar de outro.
+//Porém ao gerar o package ocorre erro de build. Ele não encontra o arquivo jar e falha
+//Portanto, teremos que instalar o projeto no repositório local com
+mvn install
+//Assim teremos o arquivo jar no repositorio local
+
+
+//Aprendemos que quando temos o projeto referenciado como dependencia no próprio project explorer
+//do eclipse, ele puxa a referencia como um link interno, um apontamento inteligente e não uma
+//referência ao arquivo .jar. O problema disso é que todas as classes do projeto estarão disponíveis
+//para acesso, inclusive as de escopo limitado, sem acusar erro de compilação. A vantagem é que atualiza
+//automáticamente sem ter que gerar outro .jar a cada pequeno ajuste.
+
+//O maven não puxará apenas as dependencias diretas. Existe uma hierarquia/árvore de dependencias,
+//ou seja, dependencias das dependencias.
+
+//Para o servlet, não faz sentido ter o escopo compile (presença na compilação e no empacotamento)
+//Nós precisamos do servlet para compilação, mas na produção o serviço fornecerá isso, portanto, sua situação
+//se enquadra no escopo 'provided'.
+<dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>javax.servelt-api</artifactId>
+    <version>3.1.0</version>
+    <scope>provided</scope>
+</dependency> //Pois utilizaremos em compilação mas em produção será provido
+//É bom limparmos com mvn clean antes de empacotar novamente, pois podem ficar sujeiras.
+
+//O escopo contrário do provided é o 'runtime', ou seja, será dispensado na compilação, porém
+//presente no pacote final. Faremos ele com o stella:
+<dependency>
+    <groupId>br.com.caelum.stella</groupId>
+    <artifactId>caelum-stella-core</artifactId>
+    <version>2.1.2</version>
+    <scope>runtime</scope>
+</dependency>
+//O problema dessa variação no eclipse, é que como podemos precisar rodar para testar as classes. Ele deixará de acusar
+//com antecedencia alguns erros de compilação, que ocorrerão na hora do build. Um bom exemplo desse escopo é o driver JDBC,
+//por exemplo o mysql-connector. Esse driver não é preciso para compilar, pois as interfaces do JDBC (e o DriverManager)
+//já fazem parte do JRE. No entanto, para rodar aplicação e estabelecer a conexão concreta é preciso ter o driver no classpath.
+
+
+//Outra mecânica interessante do funcionamento de servlets, é a preferência explicita. Quando se tem uma mesma dependência
+//se repetindo ao longo da árvor, a ocorrência feita diretamente (explicita) será a definitiva. Portanto se tivermos
+//a declaração em versões diferentes, podemos ter problemas com a discrepância. Por exemplo, o xtream do projeto
+//principal ser o 1.4.1 e o sobrescrito ser o 1.4.8, ao tentar rodar um recurso da versão recente, pode ocorrer problemas.
+
+//Finalmente, podemos também excluir algumas subdependencias em uma declaração. Dispensando alguns arquivos:
+<dependency>
+    <groupId>com.thoughtworks.xstream</groupId>
+    <artifactId>xstream</artifactId>
+    <version>1.4.1</version>
+        <exclusions>
+            <exclusion>
+                <groupId>xmlpull</groupId>
+                <artifactId>xmlpull</artifactId>
+            </exclusion>
+        </exclusions>
+</dependency>
+//Como a xstream possui dois arquivos filhos que são colocados no projeto, podemos excluir um deles com esse comando.
