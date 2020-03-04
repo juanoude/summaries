@@ -104,3 +104,98 @@ export default new App().server;
 //faremos o download do postbird para interface gráfica do postgres
 //localhost 5432
 //criaremos o database, e o resto será feito pela própria aplicação.
+
+//Agora o que faremos é estabelecer um padrão de código entre todos os programadores
+//do projeto. Utilizaremos o padrão da Airbnb.
+//yarn add eslint -D
+//yarn eslint --init
+//instalaremos a extensão do eslint do VSCODE
+
+//Com as configurações atuais, o vscode já irar apontar qualquer sintaxe fora do padrão
+//como um erro, em que podemos observar visualmente e arrumarmos manualmente. Porém é
+//possível configurar para automatizar a maioria das correções ao salvar:
+//Acessamos Open Settings(JSON) no vscode:
+"[javascript]": {
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+  }
+}
+
+"[javascriptreact]": {
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+  }
+}
+
+//No eslintrc.js:
+//...
+rules: {
+  "class-methods-use-this": "off", //Todos métodos de classe com o this.
+  "no-param-reassign": "off", //Não permire alterar parametros.
+  "camelcase": "off", //Obriga o camelcase nas variáveis
+  "no-unused-vars": ["error", { "argsIgnorePattern": "next"}],//não deixa variáveis inutilizadas.
+}
+
+//Agora instalaremos o prettier, que também adaptará nosso código mas de uma forma focada em estética:
+//yarn add prettier eslint-config-prettier eslint-plugin-prettier -D
+//.eslintrc:
+//...
+extends:['airbnb-base', 'prettier'],
+plugins: ['prettier'],
+//...
+rules: {
+  "prettier/prettier": "error", //prettier retorna um erro do eslint
+  //...
+}
+
+//criaremos o .prettierrc:
+{
+  "singleQuote": true,
+  "trailingComma": "es5"
+}
+
+//para dar uma geral em todos os arquivos js com o eslint:
+//yarn eslint --fix src --ext .js
+
+//Instalaremos a extensão editorconfig do vscode e criaremos o .editorconfig:
+//alteraremos apenas o:
+// trim_trailing_whitespace = true
+// insert_final_newline = true
+
+
+
+//Agora iremos passar a usar o sequelize para interagir com o postgres e organizaremos
+//tudo de acordo com o padrão mvc.
+//Criaremos a pasta src/app, onde ficarão a pasta controllers e models
+//Criaremos a pasta src/database com a subpasta migrations
+//Criaremos a pasta src/config com o arquivo database.js
+//yarn add sequelize
+//yarn add sequelize-cli -D
+//Criaremos o arquivo .sequelizerc:
+const { resolve } = require('path');
+
+module.exports = {
+  //daremos o caminho do arquivo de configuração
+  config: resolve(__dirname, 'src',  'config', 'database.js'),
+  //daremos o caminho da pasta de models
+  'models-path': resolve(__dirname, 'src',  'app', 'models'),
+  //daremos o caminho da pasta de models
+  'migrations-path': resolve(__dirname, 'src',  'database', 'migrations'),
+  //daremos o caminho da pasta de models
+  'seeds-path': resolve(__dirname, 'src',  'database', 'seeds'),
+};
+//O sequelize não entende import export. Sintaxe antiga obrigatória.
+//No src/config/database.js:
+module.exports = {
+  dialect: 'postgres',
+  host: 'localhost',
+  username: 'postgres',
+  password: 'docker',
+  database: 'gobarber',
+  define: {
+    timestamps: true,
+    underscored: true,//nomes das tabelas criadas no padrão underline
+    underscoredAll: true //nomes das colunas e relacionamentos criados no padrão underline
+  }
+};
+//yarn add pg pg-hstore
