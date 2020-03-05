@@ -199,3 +199,52 @@ module.exports = {
   }
 };
 //yarn add pg pg-hstore
+
+
+//Para criar nossa primeira migration:
+//yarn sequelize migration:create --name=create-users
+//dentro do src/database/migrations haverá um arquivo novo equivalente.
+//Complementaremos com código:
+'use strict';
+
+module.exports = {
+  up: (queryInterface, Sequelize) => {
+    return queryInterface.createTable('users', {
+      id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true
+      },
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      email: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
+      },
+      password_hash: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      provider: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+        allowNull: false
+      },
+      created_at: {
+        type: Sequelize.DATE,
+        allowNull: false
+      },
+      updated_at: {
+        type: Sequelize.DATE,
+        allowNull: false
+      }
+    });
+  },
+  down: (queryInterface) => {
+    return queryInterface.dropTable('users');
+  }
+};
