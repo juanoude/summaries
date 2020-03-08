@@ -248,3 +248,145 @@ module.exports = {
     return queryInterface.dropTable('users');
   }
 };
+
+//Para migrar:
+//yarn sequelize db:migrate
+//Na tabela sequelizemeta, tem o histórico de migrations feitas
+//Para desfazer:
+//yarn sequelize db:migrate:undo
+
+//Criando o model do usuario:
+//model/User.js
+import Sequelize, { Model } from 'sequelize';
+
+class User extends Model {
+  static init(sequelize) {
+    super.init({
+      name: Sequelize.STRING,
+      email: Sequelize.STRING,
+      password_hash: Sequelize.STRING,
+      provider: Sequelize.BOOLEAN
+    },
+    {
+      sequelize,
+    });
+  }
+}
+
+export default User;
+
+
+//Agora criaremos a conexão com o banco e o carregamento de todos os models:
+//src/database/index.js
+import Sequelize from 'sequelize';
+import databaseConfig from '../config/database';
+import User from '../models/User';
+
+const models = [User];
+
+class Database {
+  constructor() {
+    this.init();
+  }
+  init() {
+    this.connection() = new Sequelize(databaseConfig);
+
+    models.map(model => model.init(this.connection));
+  }
+}
+
+export default new Database();
+
+//Na rota colocaremos uma lógica para testar a inserção:
+//...
+import User from './app/model/User';
+//...
+routes.get('/', async (req, res) => {
+  const user = await User.create({
+    nome: 'Juanoude das garça',
+    email: 'dasgarça@hotmail.com',
+    password_hash: 'quedasgarçaéessa',
+  });
+
+  return res.json(user);
+});
+//No log aparecem as querys executadas pela aplicação.
+
+
+//Agora criaremos o controller e extrairemos a lógica do routes:
+//src/app/controller/UserController.js:
+import User from '../models/User';
+
+class UserController {
+
+  async store(req, res) {
+    const userExists = await User.findOne({ where: { email: req.body.email } });
+
+    if(userExists) {
+      return res.status(400).json({ error: 'Email already exists.'});
+    }
+
+    const user = await User.create(req.body);
+
+    return res.json(user);
+
+    //para retornarmos apenas alguns campos fariamos:
+    // const { id, email, name, provider } = await User.create(req.body);
+    // return res.json({
+    //   id,
+    //   name,
+    //   email,
+    //   provider
+    // });
+  }
+}
+
+export default new UserController();
+
+//agora nosso routes ficará assim:
+import { Router } = from 'express';
+import UserController from './app/controllers/UserController';
+
+const routes = new Router();
+
+routes.post('/users', UserController.store);
+
+export default routes;
+
+//Agora para testar no insomnia, criaremos um novo workspace e estabeleceremos
+//uma nova variavel no manage enviroments:
+{
+  "base_url": "http://localhost:3333"
+}
+//faremos a requisição post e verificamos a inserção
+
+//Agora faremos a lógica do hash de senha:
+//yarn add bcryptjs
+//No model faremos:
+import bcrypt from 'bcryptjs';
+import Sequelize, { Model } from 'sequelize';
+
+class User extends Model {
+  static init(sequelize) {
+    super.init({
+      name: Sequelize.STRING,
+      email: Sequelize.STRING,
+      password: Sequelize.VIRTUAL,
+      password_hash: Sequelize.STRING,
+      provider: Sequelize.BOOLEAN
+    },
+    {
+      sequelize,
+    });
+
+    this.addHook('beforeSave', async (user) => {
+      if(user.password) {
+        user.password_hash = await bcrypt.hash(user.password, 8);
+      }
+    });
+
+    return this; //Parece opcional;
+  }
+}
+
+export default User;
