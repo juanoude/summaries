@@ -390,3 +390,60 @@ class User extends Model {
 }
 
 export default User;
+
+
+
+//Agora utilizaremos o Json Web Token para autenticar nossas sessões:
+//Criaremos em um novo controller, pois estamos criando uma sessão e não um
+//usuário, um controller não pode ter dois métodos store()
+//yarn add jsonwebtoken
+//src/app/controllers/SessionController.js:
+import jwt from 'jsonwebtoken';
+
+import authConfig from '../../config/auth';
+import User from '../models/User';
+
+class SessionController {
+  async store(req, res) {
+    const { email, password } = req.body;
+    const user = await User.findOne({ where: { email } });
+
+    if(!user){
+      return res.status(401).json({ error: 'User not found'});
+    }
+
+    if(!(user.checkPassword(user.password))){
+      return res.status(401).json({ error: 'Password does not match'});
+    }
+
+    const { id, name } = user;
+
+    return res.json({
+      user: {
+        id,
+        name,
+        email
+      },//O segundo atributo que devolveremos é o token
+      //Para assinar temos que colocar o payload { id },
+      //para termos acesso a essa informação futuramente pelo próprio token:
+      token: jwt.sign({ id }, authConfig.secret, { //Depois uma senha interna da api
+        ExpiresIn: authConfig.expiresIn //por último colocamos o tempo de vida dele.
+      }),
+    });
+  }
+}
+
+//No model do usuário criaremos uma função para checar a senha:
+checkPassword(password) {
+  return bcrypt.compare(password, this.password_hash);
+}
+
+//No routes, colocaremos a nova rota:
+import SessionController from './app/controllers/SessionController';
+routes.post('/sessions', SessionController.store);
+
+//A senha interna será guardada no src/config/auth.js:
+export default {
+  secret: 'códigoSecretoEmMd5',
+  expiresIn: '7d'
+};
