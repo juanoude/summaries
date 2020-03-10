@@ -248,3 +248,9 @@ module.exports = {
     return queryInterface.dropTable('users');
   }
 };
+
+//Migraremos o banco:
+//yarn sequelize db:migrate
+
+//Para desfazer se faz:
+//yarn sequelize db:migrate:undo
