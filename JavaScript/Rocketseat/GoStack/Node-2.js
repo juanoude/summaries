@@ -249,8 +249,201 @@ module.exports = {
   }
 };
 
-//Migraremos o banco:
+//Para migrar:
 //yarn sequelize db:migrate
-
-//Para desfazer se faz:
+//Na tabela sequelizemeta, tem o histórico de migrations feitas
+//Para desfazer:
 //yarn sequelize db:migrate:undo
+
+//Criando o model do usuario:
+//model/User.js
+import Sequelize, { Model } from 'sequelize';
+
+class User extends Model {
+  static init(sequelize) {
+    super.init({
+      name: Sequelize.STRING,
+      email: Sequelize.STRING,
+      password_hash: Sequelize.STRING,
+      provider: Sequelize.BOOLEAN
+    },
+    {
+      sequelize,
+    });
+  }
+}
+
+export default User;
+
+
+//Agora criaremos a conexão com o banco e o carregamento de todos os models:
+//src/database/index.js
+import Sequelize from 'sequelize';
+import databaseConfig from '../config/database';
+import User from '../models/User';
+
+const models = [User];
+
+class Database {
+  constructor() {
+    this.init();
+  }
+  init() {
+    this.connection() = new Sequelize(databaseConfig);
+
+    models.map(model => model.init(this.connection));
+  }
+}
+
+export default new Database();
+
+//Na rota colocaremos uma lógica para testar a inserção:
+//...
+import User from './app/model/User';
+//...
+routes.get('/', async (req, res) => {
+  const user = await User.create({
+    nome: 'Juanoude das garça',
+    email: 'dasgarça@hotmail.com',
+    password_hash: 'quedasgarçaéessa',
+  });
+
+  return res.json(user);
+});
+//No log aparecem as querys executadas pela aplicação.
+
+
+//Agora criaremos o controller e extrairemos a lógica do routes:
+//src/app/controller/UserController.js:
+import User from '../models/User';
+
+class UserController {
+
+  async store(req, res) {
+    const userExists = await User.findOne({ where: { email: req.body.email } });
+
+    if(userExists) {
+      return res.status(400).json({ error: 'Email already exists.'});
+    }
+
+    const user = await User.create(req.body);
+
+    return res.json(user);
+
+    //para retornarmos apenas alguns campos fariamos:
+    // const { id, email, name, provider } = await User.create(req.body);
+    // return res.json({
+    //   id,
+    //   name,
+    //   email,
+    //   provider
+    // });
+  }
+}
+
+export default new UserController();
+
+//agora nosso routes ficará assim:
+import { Router } = from 'express';
+import UserController from './app/controllers/UserController';
+
+const routes = new Router();
+
+routes.post('/users', UserController.store);
+
+export default routes;
+
+//Agora para testar no insomnia, criaremos um novo workspace e estabeleceremos
+//uma nova variavel no manage enviroments:
+{
+  "base_url": "http://localhost:3333"
+}
+//faremos a requisição post e verificamos a inserção
+
+//Agora faremos a lógica do hash de senha:
+//yarn add bcryptjs
+//No model faremos:
+import bcrypt from 'bcryptjs';
+import Sequelize, { Model } from 'sequelize';
+
+class User extends Model {
+  static init(sequelize) {
+    super.init({
+      name: Sequelize.STRING,
+      email: Sequelize.STRING,
+      password: Sequelize.VIRTUAL,
+      password_hash: Sequelize.STRING,
+      provider: Sequelize.BOOLEAN
+    },
+    {
+      sequelize,
+    });
+
+    this.addHook('beforeSave', async (user) => {
+      if(user.password) {
+        user.password_hash = await bcrypt.hash(user.password, 8);
+      }
+    });
+
+    return this; //Parece opcional;
+  }
+}
+
+export default User;
+
+
+
+//Agora utilizaremos o Json Web Token para autenticar nossas sessões:
+//Criaremos em um novo controller, pois estamos criando uma sessão e não um
+//usuário, um controller não pode ter dois métodos store()
+//yarn add jsonwebtoken
+//src/app/controllers/SessionController.js:
+import jwt from 'jsonwebtoken';
+
+import authConfig from '../../config/auth';
+import User from '../models/User';
+
+class SessionController {
+  async store(req, res) {
+    const { email, password } = req.body;
+    const user = await User.findOne({ where: { email } });
+
+    if(!user){
+      return res.status(401).json({ error: 'User not found'});
+    }
+
+    if(!(user.checkPassword(user.password))){
+      return res.status(401).json({ error: 'Password does not match'});
+    }
+
+    const { id, name } = user;
+
+    return res.json({
+      user: {
+        id,
+        name,
+        email
+      },//O segundo atributo que devolveremos é o token
+      //Para assinar temos que colocar o payload { id },
+      //para termos acesso a essa informação futuramente pelo próprio token:
+      token: jwt.sign({ id }, authConfig.secret, { //Depois uma senha interna da api
+        ExpiresIn: authConfig.expiresIn //por último colocamos o tempo de vida dele.
+      }),
+    });
+  }
+}
+
+//No model do usuário criaremos uma função para checar a senha:
+checkPassword(password) {
+  return bcrypt.compare(password, this.password_hash);
+}
+
+//No routes, colocaremos a nova rota:
+import SessionController from './app/controllers/SessionController';
+routes.post('/sessions', SessionController.store);
+
+//A senha interna será guardada no src/config/auth.js:
+export default {
+  secret: 'códigoSecretoEmMd5',
+  expiresIn: '7d'
+};
