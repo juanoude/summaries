@@ -447,3 +447,69 @@ export default {
   secret: 'códigoSecretoEmMd5',
   expiresIn: '7d'
 };
+
+//Uma vez criado o token, se atrela o atributo Authorization: Bearer (token) no header das requisições
+//Para impedir que usuários não logados executem certos procedimentos, faremos um middleware:
+//src/app/middleares/auth.js:
+import jwt from 'jsonwebtoken';
+import authConfig from '../../config/auth';
+import {promisify} from 'util';
+
+export default async(req, res, next) => {
+  const authHeader = req.header.authorization;
+
+  if(!authHeader) {
+    res.status(401).json({ error: 'Token not provided' });
+  }
+
+  const [, token] = authHeader.split(' '); //Divide pelo espaço e pega apenas o segundo elemento
+
+  try {
+    //a função promisify retorna uma função de callback em forma de promise
+    const decoded = await promisify(jwt.verify)(token, authConfig.secret);
+    req.userId = decoded.id;
+
+    return next();
+
+  }catch(error) {
+    return res.status(401).json({ error: 'Invalid Token' });
+  }
+
+  return next();
+}
+
+//No routes:
+import authMiddleware from './app/middleares/auth';
+//Rotas que não exigem autorização
+routes.use(authMiddleware);
+//Rotas que exigem a autenticação
+//...
+
+
+//Agora no controller do usuário faremos o update:
+async update(req, res) {
+  const {email, oldPassword} = req.body;
+  const user = await User.findByPk(req.userId);
+
+  if(email && email != user.email) {
+    const userExists = await User.findOne({ where: { email }});
+    if(userExists) {
+      res.status(400).json({ error: 'Email already exists' });
+    }
+  }
+    if(oldPassword && !(await user.checkPassword(oldPassword))) {
+      res.status(400).json({ error: 'Password does not match' });
+    }
+
+    const {id, name, provider} = await user.update(req.body);
+
+  return res.json({
+    id,
+    name,
+    email,
+    provider
+  });
+}
+
+//No routes:
+routes.put('/users', UserController.update);
