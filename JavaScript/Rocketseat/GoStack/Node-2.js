@@ -513,3 +513,62 @@ async update(req, res) {
 
 //No routes:
 routes.put('/users', UserController.update);
+
+
+//Para validar a entrada dos dados utilizaremos o yup
+//yarn add yup
+//Agora iremos no UserController:
+import * as Yup from 'yup';//Não tem default
+
+//No store():
+const schema = Yup.object().shape({
+  name: Yup.string()
+    .required(),
+  email: Yup.string()
+    .email()
+    .required(),
+  password: Yup.string()
+    .min(6)
+    .required()
+});
+
+if(!(await schema.isValid(req.body))) {
+  return res.status(400).json({error: 'Invalid data'})
+}
+
+//No update():
+const schema = Yup.object().shape({
+  name: Yup.string(),
+  email: Yup.string()
+    .email(),
+  oldPassword: Yup.string()
+    .min(6),
+  password: Yup.string()
+    .min(6)
+    .when('oldPassword', (oldPassword, field) =>
+      oldPassword ? field.required() : field
+    ),
+  confirmPassword: Yup.string()
+    .when('password', (password, field) =>
+      password ? field.required().oneOf([Yup.ref('password')]) : field
+    )
+});
+
+if(!(await schema.isValid(req.body))){
+  return res.status(400).json({error: 'Invalid data'})
+}
+
+//No session controller também faremos:
+import * as Yup from 'yup';
+
+const schema = Yup.object().shape({
+  name: Yup.string(),
+  email: Yup.string()
+    .email(),
+  password: Yup.string()
+    .required()
+});
+
+if(!(await schema.isValid(req.body))){
+  return res.status(400).json({error: 'Invalid data'})
+}
