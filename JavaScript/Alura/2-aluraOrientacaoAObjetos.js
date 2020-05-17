@@ -50,6 +50,54 @@ class ContaCorrente {
   }
 }
 
-// A primitive type variable passed on a paramenter, is just a copy of the variable,
+// A primitive type variable passed on a parameter, is just a copy of the variable,
 //changing it wont alter the original variable. But objects, in this case, what is
 //being passed is a instance, wich will result in changes in the original variable.
+
+
+//Constructor on JavaScript:
+export class Cliente {
+  _nome;
+  _cpf;
+
+  constructor(nome, cpf) {
+    this._nome = nome;
+    this._cpf = cpf;
+  }
+}
+
+const cliente = new Cliente("João", 03849424416)
+
+//Get, Set and Static atribs
+import {Cliente} from './Cliente';
+
+export class ContaCorrente {
+  static numeroDeContas = 0;
+  agencia;
+  _cliente;
+
+  constructor() {
+    ContaCorrente.numeroDeContas++; //it belongs to the class
+  }
+
+//Setter on JavaScript
+  set cliente(novoValor) {
+    if(cliente instanceof Cliente){
+      this._cliente = novoValor;
+    }
+  }
+
+//Getter on JavaScript
+  get cliente() {
+    return this._cliente;
+  }
+
+}
+
+//When you use the properties normally, they wil use get and set methods
+conta.cliente = 0; //undefined
+conta.cliente = new Cliente(); // Cliente {...}
+console.log(conta.cliente);
+console.log(ContaCorrente.numeroDeContas);
+
+//State refer to the class variables. Managing it is a great part of your app archtecture
