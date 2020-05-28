@@ -46,3 +46,20 @@ class SistemaAutenticacao {
   }// apenas os Funcionários e seus filhos, porém, como não há tipagem, qualquer objeto
 }// com a propriedade senha funcionaria. Até um que não a possui, pela flexibilidade estru-
 // tural do JS, ele cria a propriedade em tempo de execução como false, sequer um erro ocorre.
+
+
+//Para verificar propriedades e tipos:
+export class SistemaAutenticacao {
+  static ehAutenticavel(autenticavel) {
+    return "autenticar" in autenticavel &&//Verifica se o objeto possui tal propriedade
+      autenticavel.autenticar instanceof Function //Verifica se é uma função
+  }// Isso é ducky type, "se ele faz quack, então ele é um pato". Muito comun em
+  //linguagens fracamente tipadas.
+
+  static login(autenticavel, senha) {
+    if(SistemaAutenticacao.ehAutenticavel(autenticavel)) {
+      return autenticavel.autenticar(senha);
+    }
+    return false;
+  }
+}
