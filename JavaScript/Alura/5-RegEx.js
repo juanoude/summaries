@@ -18,3 +18,27 @@ Ex: \. , \* ;
 \d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3} // IP Address '192.2.58.207'
 \d{5}-\d{3} // CEP '41620-275'
 \(\d{2}\) \d{4}-\d{4} // Phone '(21) 3216-2345'
+
+[] //Enables us to create a class.
+Ex: [0123456789], // This equals to \d
+[.-] // The dot inside keys are interpreted literally
+
+[0-9] = [0123456789] //Shortcut
+
+? //Its a quantifier with means 0 or 1 times
+Ex: [.-]? //Optional dot or hypen
+
++ //Its a quantifier that means 1 or more times
+Ex: \d+
+
+\t //tab
+\r //carriage return
+\n //newline
+\f //form feed
+
+\s //get all the whitespaces, means a shortcut to [\t\r\n\f]
+
+
+//Examples:
+//</?code> get '<code>' and '</code>'
+[1-36-9] //same as [1236789]
