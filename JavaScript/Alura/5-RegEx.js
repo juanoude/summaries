@@ -112,7 +112,7 @@ Ex: a(?:a{2})?a{2} // The return will match the pattern in this case.
 //Exercises:
 ([0123]?\d)\s+(?:de\s+)?([A-Z][a-zç]{1,8})\s+(?:de\s+)?([12]\d{3}) // Get dd Month yyyy from a date
 \d{3}[-.]?\d{3}[.-]?\d{3}[.-]?(\d{2}) //Get the last 2 numbers of CPF
-[Z]\d+(\w) // Get a word from the cipher
+[Z]\d+(\w) // Get a word from a specific cipher
 
 //Given the error Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
 (Caused[\s\w:.]+):([\w\s]+) //Gives the path and the message in two groups
@@ -155,5 +155,27 @@ Ex: a(?:a{2})?a{2} // The return will match the pattern in this case.
 //the match for h1 in the first object and h2 in the end is valid
 <(h1|h2).+?>([\w\sõãí.]+)</\1> // in this one references the first object value
 
+//To make a exclusion class, we use:
+[^] // Means everything except the following chars
+Ex: [^>] //Gets every char except '>'
+
+\W // Means non-word char, shorcut to [^\w]
+\D // Means non-digit, shorcut to [^\d]
+
 //Exercises:
 <(p[1-9])> .*? </\1> //Check the tags and its respective closage <p1> to <p9>
+<h1[^>]+> //Get the opening h1 tag
+
+//The old cipher logic '[Z]\d+(\w)' equals [^Z\d]:
+
+//Quick example of javascript usage of a regex:
+var target = '11a22b33c';
+var regex = /(\d\d)(\w)/g; //ou new RegExp('(\\d\\d)(\\w)', 'g');
+var resultado = regex.exec(target);
+
+console.log(resultado[0]); //11a
+console.log(resultado[1]); //22b
+console.log(resultado[2]); //33c
+
+console.log(resultado.index); //Position of the first match
+console.log(regex.lastIndex); //Position of the last match
