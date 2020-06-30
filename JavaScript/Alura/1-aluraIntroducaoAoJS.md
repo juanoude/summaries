@@ -31,7 +31,7 @@
 
 
 ## Arrays
-* 
+* Unusual way of declaring array:
 ```
 const cities = new Array(
   'São Paulo',
@@ -39,55 +39,68 @@ const cities = new Array(
   'Brasília'
 );
 ```
-* cidades.push('Florianópolis'); //deixa a estrutura constante, mas pode-se adicionar...
-* cidades.splice(1, 1); //..., deletar e diversos outros métodos para arrays
+* `cities.push('Florianópolis');` structure is constant, but can add...
+* `cities.splice(1, 1);`..., delete and many other array methods
 
 
-//Condicionais:
-if (condicao > 18) {
+## Conditionals:
+
+```
+if (condition > 18) {
   console.log('true');
 } else {
   console.log('false');
 }
+```
 
-if (condicao > 18) {
+```
+if (condition > 18) {
   console.log('true');
-} else if (outraCondicao) {
+} else if (otherCondition) {
   console.log('false - true');
 } else {
   console.log('false - false');
 }
+```
 
-if(salario < 2600.0)
-  console.log("A sua aliquota é de 15%"); //Está dentro
-  console.log("Você pode deduzir até R$ 350"); //Está fora
+```
+if(salary < 2600.0)
+  console.log("Your aliquot is 15%"); //Inside
+  console.log("You can deduct until R$ 350"); //Out
+```
 
-// || == ou
-// && == e
+* `|| == ou`
+* `&& == e`
 
-//Iteradores
-const destino = 'Brasília';
+
+## Iterators
+
+```
+const destination = 'Brasília';
 let existsDest = false;
-let contador = 0;
-while (contador < 3) {
-  if (cidades[contador] == destino) {
-    console.log('existe no array');
+let counter = 0;
+while (counter < 3) {
+  if (cidades[counter] == destination) {
+    console.log('exist in array');
     existsDest = true;
     break;
   }
-  contador += 1;
+  counter += 1;
 }
-console.log('destino existe:', existsDest);
+console.log('destination exists:', existsDest);
+```
 
-//no for:
+* with for:
+```
 for (i = 0; i < 3; i++) {
-  if (cidades[i] === destino) {
-    console.log('existe no array');
+  if (cities[i] === destination) {
+    console.log('exist in array');
     existsDest = true;
     break;
   }
 }
-console.log('destino existe:', existsDest);
+console.log('destination exists:', existsDest);
+```
 
-//Debugger - Continue vai para no próximo breakpoint e step over executa a próxima linha.
-//É possível criar várias configurações de debug com o launch.json
+**PS:** In debugger - Continue goes to the next breakpoint and step over execute the next line. \
+Is possible to create many debug configurations in `launch.json`
