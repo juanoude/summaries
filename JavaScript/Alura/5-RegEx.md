@@ -15,11 +15,11 @@ they are not interpreted literally.
 * \d // means a number;
 
 ### Exercises:
-`\d{3}\.\d{3}\.\d{3}\-\d{2}` Brazillian CPF '036.939.311-27'
-`\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}` Brazililan CNPJ '15.123.321/8883-22'
-`\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}` IP Address '192.2.58.207'
-`\d{5}-\d{3}` CEP '41620-275'
-`\(\d{2}\) \d{4}-\d{4}` Phone '(21) 3216-2345'
+`\d{3}\.\d{3}\.\d{3}\-\d{2}` Brazillian CPF '036.939.311-27' \
+`\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}` Brazililan CNPJ '15.123.321/8883-22' \
+`\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}` IP Address '192.2.58.207 \
+`\d{5}-\d{3}` CEP '41620-275' \
+`\(\d{2}\) \d{4}-\d{4}` Phone '(21) 3216-2345' \
 
 
 ## Lesson 2
@@ -51,15 +51,15 @@ they are not interpreted literally.
   * **Ex:** `\s{1,}`, `[1-3]{1,4}`
 
 ### Exercises
-`</?code>` get `<code>` and `</code>`
-`[1-36-9]` same as `[1236789]`
-`[0-3]?\d\s+de\s+[A-Z][a-zç]{1,8}\s+de\s+[12]\d{3}` Date '1 de Março de 1990'
-`[0-2]?\dh[0-5]\dmin[0-5]\ds` Another date in `19h32min16s` format
-`[A-Z]{3}-\d{4}` Car plate `KMG-8089`
-`[A-Z]*ROT[A-Z]+` Any word containig `ROT`
+`</?code>` get `<code>` and `</code>` \
+`[1-36-9]` same as `[1236789]` \
+`[0-3]?\d\s+de\s+[A-Z][a-zç]{1,8}\s+de\s+[12]\d{3}` Date '1 de Março de 1990' \
+`[0-2]?\dh[0-5]\dmin[0-5]\ds` Another date in `19h32min16s` format \
+`[A-Z]{3}-\d{4}` Car plate `KMG-8089` \
+`[A-Z]*ROT[A-Z]+` Any word containig `ROT` \
 
 ### Little tip:
-For legibility is nice to break a big Regex into undertandable variables.
+For legibility is nice to break a big Regex into undertandable variables. \
 instead of `[0123]?\d\s+de\s+[A-Z][a-zç]{1,8}\s+de\s+[12]\d{3}` we can:
 ```
 
@@ -87,8 +87,8 @@ var objetoRegex  = new RegExp(stringRegex, 'g');
 * **Ex:** `^file.+\.html$` A html file url. Begins with file and ends with html.
 
 ### Exercises:
-`^Caused by:.+` Getting errors that always start with `Caused by:`
-`^Data:[\s]?\d{2}/\d{2}/\d{4}$` Getting dates with the structure `Data: dd/mm/yyyy` or `Data:dd/mm/yyyy`
+`^Caused by:.+` Getting errors that always start with `Caused by:` \
+`^Data:[\s]?\d{2}/\d{2}/\d{4}$` Getting dates with the structure `Data: dd/mm/yyyy` or `Data:dd/mm/yyyy` \
 
 
 ## Lesson 4
@@ -107,22 +107,22 @@ var objetoRegex  = new RegExp(stringRegex, 'g');
   * **Ex:** `a(?:a{2})?a{2}` The return will match the pattern in this case.
 
 ### Exercises:
-`([0123]?\d)\s+(?:de\s+)?([A-Z][a-zç]{1,8})\s+(?:de\s+)?([12]\d{3})`  Get dd Month `yyyy` from a date
-`\d{3}[-.]?\d{3}[.-]?\d{3}[.-]?(\d{2})` Get the last 2 numbers of CPF
-`[Z]\d+(\w)` Get a word from a specific cipher
+`([0123]?\d)\s+(?:de\s+)?([A-Z][a-zç]{1,8})\s+(?:de\s+)?([12]\d{3})`  Get dd Month `yyyy` from a date \
+`\d{3}[-.]?\d{3}[.-]?\d{3}[.-]?(\d{2})` Get the last 2 numbers of CPF \
+`[Z]\d+(\w)` Get a word from a specific cipher \
 
-Given the error `Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure`
-`(Caused[\s\w:.]+):([\w\s]+)` Gives the path and the message in two groups
+Given the error `Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure` \
+`(Caused[\s\w:.]+):([\w\s]+)` Gives the path and the message in two groups \
 
-Given the emails `super.mario@caelum.com.br`, `donkey.kong@alura.com.br` and `bowser1@alura.com.br`
-`([a-z.]{4,14}[a-z\d]?)@(?:alura.com.br|caelum.com.br)` Get the emails names.
+Given the emails `super.mario@caelum.com.br`, `donkey.kong@alura.com.br` and `bowser1@alura.com.br` \
+`([a-z.]{4,14}[a-z\d]?)@(?:alura.com.br|caelum.com.br)` Get the emails names. \
 
-Given the should match emails `donkey.kong@kart.com.br` `bowser1@games.info` `super-mario@nintendo.JP` `TEAM.donkey-kong@MARIO.kart1.nintendo.com`
-and the should not match emails `wario@kart@nintendo.com` `yoshi@nintendo` `daisy@nintendo.b` `..@email.com`
-My answer `^([-\w])+(\.[-\w]+)?@(\w+\.)+([a-zA-Z]{2,})` gives the expected result.
-In the course answer was: `^([\w-]\.?)+@([\w-]+\.)+([A-Za-z]{2,4})+$`
+Given the should match emails `donkey.kong@kart.com.br` `bowser1@games.info` `super-mario@nintendo.JP` `TEAM.donkey-kong@MARIO.kart1.nintendo.com` \
+and the should not match emails `wario@kart@nintendo.com` `yoshi@nintendo` `daisy@nintendo.b` `..@email.com` \
+My answer `^([-\w])+(\.[-\w]+)?@(\w+\.)+([a-zA-Z]{2,})` gives the expected result. \
+In the course answer was: `^([\w-]\.?)+@([\w-]+\.)+([A-Za-z]{2,4})+$` \
 
-Given the addresses in a string:
+Given the addresses in a string: \
 ```
 
 Nico Steppat|14/05/1977|Rua Buarque de Macedo|50|22222-222|Rio de Janeiro
@@ -130,9 +130,9 @@ Romulo Henrique|14/06/1993|Rua do Lins|120|12345-322|Rio de Janeiro Leonardo
 Cordeiro|01/01/1995|Rua de Campo Grande|01|00001-234|Rio de Janeiro
 
 ```
-The pattern:
-`([\w\s]+)\|(?:\d+/){2}\d+\|([\w\s]+)\|(\d+)\|(\d{5}-\d{3})\|(?:\w+\s?)+`
-Gets the name, street, number and CEP
+The pattern: \
+`([\w\s]+)\|(?:\d+/){2}\d+\|([\w\s]+)\|(\d+)\|(\d{5}-\d{3})\|(?:\w+\s?)+` \
+Gets the name, street, number and CEP \
 
 
 ## Lesson 5
@@ -164,11 +164,11 @@ Gets the name, street, number and CEP
 * `\W` Means non-word char, shortcut to `[^\w]`
 * `\D` Means non-digit, shortcut to `[^\d]`
 
-###Exercises:
-`<(p[1-9])> .*? </\1>` Check the tags and its respective closage from `<p1>` to `<p9>`
-`<h1[^>]+>` Get the opening h1 tag
+### Exercises
+`<(p[1-9])> .*? </\1>` Check the tags and its respective closage from `<p1>` to `<p9>` \
+`<h1[^>]+>` Get the opening h1 tag \
 
-The previous cipher logic exercise `[Z]\d+(\w)` equals `[^Z\d]`:
+The previous cipher logic exercise `[Z]\d+(\w)` equals `[^Z\d]`: \
 
 ### Quick example
 
