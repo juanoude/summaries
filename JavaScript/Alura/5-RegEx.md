@@ -11,8 +11,8 @@ they are not interpreted literally.
 * `{n}` define a specific quantity for the char, also a quantifier;
   * **Ex:** `a{3}`, `\d*` letter a 3 times, a digit zero or more times;
 * `\` for interpret the meta-chars literally;
-  * **Ex:** \. , \* ;
-* \d // means a number;
+  * **Ex:** `\.` , `\*` ;
+* `\d` means a number;
 
 ### Exercises:
 `\d{3}\.\d{3}\.\d{3}\-\d{2}` Brazillian CPF `036.939.311-27` \

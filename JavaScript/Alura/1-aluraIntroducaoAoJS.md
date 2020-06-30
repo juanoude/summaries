@@ -1,8 +1,24 @@
 
-idade = 30; //Variável Global - MÁ PRÁTICA
-const idade = 30; // Variável de escopo - BOA PRÁTICA!
+# JavaScript - Introduction
 
-//Conversão de tipos
+## Variables
+* `idade = 30;` Global Variable - Bad Practice
+* `const idade = 30;` Scope Variable - Good Practice
+
+* Giving preference to declare with `const` is a good practice. Because:
+  * `const constant = "Is not possible to modify its value, in objects, doesn't change its structure;`
+  * ```let nonConstant = "But with let, ";
+    nonConstant = nonConstant + "is possible to modify the variable value";```
+
+* `let` can be declared and attributed in different lines, `const` has to be on the same:
+  * ```let declared;
+  declared = "attributed";```
+  * `const declared = 'attributed';`
+
+*  The variable names should be the most explicit/explanatory possible, even if become extensive - Good practice
+
+
+## Type Conversion
 console.log("ano" + 2020); //ano2020
 console.log("2" + "2"); // 22
 console.log(parseInt("2") + parseInt("2")); // 4 (parseFloat também existe)
@@ -13,20 +29,7 @@ console.log("Ricardo" / 2); // NaN (Not a Number)
 console.log(6.5); //6.5
 console.log(6,5); //6 5
 
-//Declaração de Variáveis.
-//Manter o máximo de constantes é uma BOA PRÁTICA!
-const constante = "Não é possível reatribuir valor, em objetos, não se muda a estrutura";
-let naoConstante = "Já com o let, ";
-naoConstante = naoConstante + "é possível reatribuir o valor da variável";
 
-//o let pode ser declarado e atribuído em linhas diferentes, o const deve ser na mesma linha:
-let vouDeclarar;
-vouDeclarar = "declarei";
-
-const jaDeclarei = 'Declarado';
-
-/* Os Nomes de Variáveis devem ser o mais explicito/explicativo Possível mesmo que
-fique extenso - BOA PRÁTICA */
 
 
 //Arrays
