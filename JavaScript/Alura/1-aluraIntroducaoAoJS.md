@@ -7,8 +7,8 @@
 
 * Giving preference to declare with `const` is a good practice. Because:
   * `const constant = "Is not possible to modify its value, in objects, doesn't change its structure;`
-  * ```let nonConstant = "But with let, ";
-    nonConstant = nonConstant + "is possible to modify the variable value";```
+  * `let nonConstant = "But with let, ";` \
+    `nonConstant = nonConstant + "is possible to modify the variable value";`
 
 * `let` can be declared and attributed in different lines, `const` has to be on the same:
   * ```let declared;
