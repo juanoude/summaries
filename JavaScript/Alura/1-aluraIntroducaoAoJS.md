@@ -11,36 +11,36 @@
     `nonConstant = nonConstant + "is possible to modify the variable value";`
 
 * `let` can be declared and attributed in different lines, `const` has to be on the same:
-  * ```let declared;
-  declared = "attributed";```
+  * `let declared;` \
+  `declared = "attributed";`
   * `const declared = 'attributed';`
 
-*  The variable names should be the most explicit/explanatory possible, even if become extensive - Good practice
+* The variable names should be the most explicit/explanatory possible, even if become extensive - Good practice
 
 
 ## Type Conversion
-console.log("ano" + 2020); //ano2020
-console.log("2" + "2"); // 22
-console.log(parseInt("2") + parseInt("2")); // 4 (parseFloat também existe)
-console.log("10" / "2") // 5
-console.log("7" / "2") // 3.5
-console.log("Ricardo" / 2); // NaN (Not a Number)
-//Cuidado com a vírgula
-console.log(6.5); //6.5
-console.log(6,5); //6 5
+* `console.log("ano" + 2020);` ano2020
+* `console.log("2" + "2");` 22
+* `console.log(parseInt("2") + parseInt("2"));` 4 (parseFloat exists too)
+* `console.log("10" / "2")`  5
+* `console.log("7" / "2")`  3.5
+* `console.log("Ricardo" / 2);` // NaN (Not a Number)
+* Watch out the comma (Brazillian standard for floats)
+  * `console.log(6.5);` 6.5
+  * `console.log(6,5);` 6 5
 
 
-
-
-//Arrays
-const cidades = new Array(
+## Arrays
+* 
+```
+const cities = new Array(
   'São Paulo',
   'Curitiba',
   'Brasília'
 );
-
-cidades.push('Florianópolis'); //deixa a estrutura constante, mas pode-se adicionar...
-cidades.splice(1, 1); //..., deletar e diversos outros métodos para arrays
+```
+* cidades.push('Florianópolis'); //deixa a estrutura constante, mas pode-se adicionar...
+* cidades.splice(1, 1); //..., deletar e diversos outros métodos para arrays
 
 
 //Condicionais:
