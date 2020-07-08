@@ -80,7 +80,7 @@ const destination = 'Brasília';
 let existsDest = false;
 let counter = 0;
 while (counter < 3) {
-  if (cidades[counter] == destination) {
+  if (cities[counter] == destination) {
     console.log('exist in array');
     existsDest = true;
     break;

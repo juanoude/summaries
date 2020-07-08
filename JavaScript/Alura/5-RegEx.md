@@ -165,10 +165,10 @@ Gets the name, street, number and CEP
 * `\D` Means non-digit, shortcut to `[^\d]`
 
 ### Exercises
-`<(p[1-9])> .*? </\1>` Check the tags and its respective closage from `<p1>` to `<p9>` \
+`<(p[1-9])> .*? </\1>` Check the tags and its respective closage from `<p1>` to `<p9>` \ 
 `<h1[^>]+>` Get the opening h1 tag
 
-The previous cipher logic exercise `[Z]\d+(\w)` equals `[^Z\d]`:
+The previous cipher logic exercise `[Z]\d+(\w)` equals `[^Z\d]`
 
 ### Quick example
 
@@ -201,5 +201,56 @@ To sweep the entire string:
     console.log(resultado);
     console.log(exp.lastIndex);
   }
+
+```
+
+Using a regex to transform `2007-12-31` into in `2007/12/31`:
+
+```
+
+var date = '2007-12-31';
+var exp = /-/g;
+date = date.replace(exp, '/');
+
+```
+
+Splitting the string `100,200-150,200;20` :
+
+```
+
+var csv = '100,200-150,200;20';
+var exp = /[,-;]/;
+var values = csv.split(exp);
+// ["100", "200", "150", "200", "20"]
+
+```
+
+Extracting an array from a pattern:
+
+```
+
+var codes = 'A121B12112C12212F12G01';
+var exp = /[A-Za-z]\d+/g;
+
+var values = codes.match(exp);
+// ["A121", "B12112", "C12212", "F12", "G01"]
+
+```
+
+Input pattern example: 
+
+```
+
+    <!doctype html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Testando pattern</title>
+    </head>
+    <body>
+        <form>
+            <input pattern="[0-9]*">
+            <input type="submit" value="Send data">
+        </form>
+    </body>
 
 ```
