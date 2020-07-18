@@ -1,33 +1,34 @@
+# The web language
 
-/*Como a mensagem "Olá mundo" está dentro de uma tag script,
-ela não será renderizada na página como texto, então ela não vai aparecer escrita.
-O navegador tentará interpretá-la como um script Javascript e exibirá um erro.*/
+* JavaScript doesn't handle loose texts:
+```
 <script>
-  Olá mundo!
+  Olá mundo! //not gonna render
 </script>
-
-//Importando javascripts externos
+```
+* Importing external JavaScript:
+```
 <script src="contador.js"></script>
-
-//Alertas pop-up
+```
+* pop-up alert:
+```
 <script>
   alert("Olá mundo");
 </script>
+```
 
-//Envia mensagem no log do navegador.
-console.log("Oi Mundo");
-//Imprime o DOM da pagina no log.
-console.log(document);
+* Send message in browser log: `console.log("Oi Mundo");`
+* Print the DOM of the page on log: `console.log(document);`
+* Search the element in the DOM and selects it: `document.querySelector("h1");` , also works into classes `.name` and id's `#name`.
 
-//Pesquisa o elemento no DOM e o seleciona.
-document.querySelector("h1"); //também funcionam classes ".nome"  e id's "#nome".
-
-//Mudando o texto de uma h1
+* Changing the h1 text:
+```
 var titulo = document.querySelector("h1");
     titulo.textContent = "Banana";
+```
 
-
-//Dada a seguinte estrutura:
+* Given the following structure:
+```
 <tr class="paciente" id="primeiro-paciente">
     <td class="info-nome">Paulo</td>
     <td class="info-peso">100</td>
@@ -35,19 +36,21 @@ var titulo = document.querySelector("h1");
     <td class="info-gordura">10</td>
     <td class="info-imc">0</td>
 </tr>
-//Para calcular o imc, é possível fazer o seguinte:
+```
+* To calculate the imc, is possible to do the following:
+```
 var paciente = document.querySelector("#primeiro-paciente");
 var tdPeso = paciente.querySelector(".info-peso");
 var peso = tdPeso.textContent;
 var tdAltura = paciente.querySelector(".info-altura");
 var altura = tdAltura.textContent;
 var imc = peso / (altura * altura);
+```
 
+* To result in a array to a query selector, should use `document.querySelectorAll(".paciente");`
 
-//Para resultar um array do query selector deve-se usar:
-document.querySelectorAll(".paciente");
-
-// Assim, um exemplo de iteração para o calculo do imc em cada linha da tabela:
+* Iteration example for 'imc' calculus in each table line:
+```
 var pacientes = document.querySelectorAll(".paciente");
 
 for (var i = 0; i < pacientes.length; i++) {
@@ -82,29 +85,31 @@ for (var i = 0; i < pacientes.length; i++) {
         tdImc.textContent = imc;
     }
 }
+```
 
-//Para formatar o numero resultado do imc para duas casas decimais:
-tdImc.textContent = imc.toFixed(2);
+* To format a number to two float digits: `tdImc.textContent = imc.toFixed(2);`
 
-//Para alterar o css do elemento:
-paciente.style.backgroundColor = "lightcoral";
-//Como melhor prática, é melhor:
-paciente.classList.add("paciente-invalido"); // Separação de mundos entre css/js
+* To alter the css of a element: `paciente.style.backgroundColor = "lightcoral";`
+	* As a best practice, you should: `paciente.classList.add("paciente-invalido");`
+	* World separation between css and js.
 
-//Exemplo de escuta de eventos:
-titulo.addEventListener("click", mostraMensagem); // Repare que não utiliza parênteses
-
+* Events listening example: `titulo.addEventListener("click", mostraMensagem);` 
+	* Notice the non-utilization of parenthesis on the function.
+	* If you do use the parenthesis, the function gonna execute in reading time.
+```
 function mostraMensagem(){
     console.log("Olá eu fui clicado!");
 }
-
-//Com uma função anonima:
+```
+* As a anonymous function:
+```
 titulo.addEventListener("click", function (){
     console.log("Olha só posso chamar uma função anônima.")
 };
+```
 
-
-//Para copiar um conteúdo de um input e colocalo em html
+* To copy a content of a input and put in a element:
+```
 <input class="frase">
 <button class="botao">Copiar</button>
 <span class="copia"></span>
@@ -123,13 +128,12 @@ titulo.addEventListener("click", function (){
  </script>
 
 
-/*Botões dentro de forms e talvez outros casos precisam prevenir o comportamento
-padrão pra funcionarem:*/
+/*Buttons inside a form have the need to prevent the default behavior of recharging the page*/
 botaoAdicionar.addEventListener("click", function(event) {
     event.preventDefault();
     console.log("Oi eu sou o botao e fui clicado");
 });
-
+```
 
 //Para adicionar uma linha na tabela:
 var botaoAdicionar = document.querySelector("#adicionar-paciente");

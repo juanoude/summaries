@@ -1,4 +1,8 @@
-//Classes
+# OO JS
+
+## Classes
+
+```
 class NameOfTheClass {
   attribute1;
   attribute2; //O valor inicial nesses casos é 'undefined';
@@ -10,12 +14,17 @@ classExample.attribute1 = "Joao Caldo";
 classExample.attribute2 = 12463849224;
 console.log(classExample);
 // NameOfTheClass { attribute1: "Joao Caldo", attribute2: 12463849224, attribute3: undefined};
+```
 
-//Classes offers the minimum structure to the class, that means that you can freely
-//"Make" new runtime atributes:
+* Classes offers the minimum structure to the class, that means that you can freely "Make" new runtime atributes:
+```
 classExample.attribute4 = "Testing a Made up Attribute";
 console.log(classExample);
 // NameOfTheClass { ..., attribute4: "Testing a Made up Attribute"};
+```
+
+* In JavaScript doesn't exists private attributes:
+```
 
 class Cliente {
   nome;
@@ -50,12 +59,13 @@ class ContaCorrente {
   }
 }
 
-// A primitive type variable passed on a parameter, is just a copy of the variable,
-//changing it wont alter the original variable. But objects, in this case, what is
-//being passed is a instance, wich will result in changes in the original variable.
+```
+
+* A primitive type variable passed on a parameter, is just a copy of the variable, changing it wont alter the original variable. But objects, in this case, what is being passed is a instance, which will result in changes in the original variable.
 
 
-//Constructor on JavaScript:
+* Constructor on JavaScript:
+```
 export class Cliente {
   _nome;
   _cpf;
@@ -67,8 +77,10 @@ export class Cliente {
 }
 
 const cliente = new Cliente("João", 03849424416)
+```
 
-//Get, Set and Static atribs
+* Get, Set and Static atribs
+```
 import {Cliente} from './Cliente';
 
 export class ContaCorrente {
@@ -93,11 +105,14 @@ export class ContaCorrente {
   }
 
 }
+```
 
-//When you use the properties normally, they wil use get and set methods
+* When you use the properties normally, they wil use get and set methods
+```
 conta.cliente = 0; //undefined
 conta.cliente = new Cliente(); // Cliente {...}
 console.log(conta.cliente);
 console.log(ContaCorrente.numeroDeContas);
+```
 
-//State refer to the class variables. Managing it is a great part of your app archtecture
+* State refer to the class variables. Managing it is a great part of your app archtecture
