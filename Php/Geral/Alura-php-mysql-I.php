@@ -119,14 +119,14 @@ mysqli_close($conexao);
 
   <?php
 
-    //Melhorando a mensagem de erro
-      } else {
-            $msg = mysqli_error($conexao);
+  //Melhorando a mensagem de erro
+    } else {
+        $msg = mysqli_error($conexao);
+  ?>
+        <p class="alert-danger">O produto <? = $nome; ?> não foi adicionado: <?= $msg ?></p>
+        <?php
+            }
         ?>
-          <p class="alert-danger">O produto <? = $nome; ?> não foi adicionado: <?= $msg ?></p>
-          <?php
-                }
-            ?>
 
 
   <?php
