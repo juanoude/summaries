@@ -78,3 +78,45 @@ obj["b"];	//42
 
 ```
 
+#### Arrays
+
+An array is an object, with numeric keys in properties. For example:
+
+```
+
+var arr = [
+	"hello world",
+    42,
+    true
+];
+
+arr[0];			//"hello world"
+arr[2];			//42
+arr[2];			//true
+arr.length		//3
+
+typeof arr;		//"object"
+
+```
+![array example](./array.png)
+
+You theoretically could use an array as a normal object with your own named properties, or you could use an `object` but only give it numeric properties similar to an array. However, this would generally be considered improper usage of types.
+
+####  Functions
+
+Another `object` subtype:
+
+```
+
+function foo() {
+	return 42;
+}
+
+foo.bar = "hello world";
+
+typeof foo;			//"function"
+typeof foo();		//"number"
+typeof foo.bar;		//"string"
+
+```
+
