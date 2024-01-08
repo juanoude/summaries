@@ -46,12 +46,36 @@ terraform <subcommand> -h
 ```
 Basic help command, can be called with a subcommand too as demonstrated in the second line
 
-### Docs
-The official providers docs can be found [here](https://registry.terraform.io/browse/providers?product_intent=terraform)
+### Provider
+The official providers docs can be found -> [here](https://registry.terraform.io/browse/providers?product_intent=terraform)
+The aws specific docs can be found -> [here](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
+
+For our first script lets begin by creating a `main.tf` file with the following content:
+```hcl
+provider "aws" {
+	region = "us-east-1"
+	profile = "terraform" //cli user profile
+}
+
+resource "aws_s3_bucket" "my-test-bucket" {
+  bucket = "my-tf-test-bucket-1241451251225"
+
+  tags = {
+    Name        = "My bucket"
+    Environment = "Dev"
+    ManagedBy   = "Terraform"
+  }
+}
+```
+Then run the `terraform init` command in the .tf file folder. It will download all the dependencies, a lock file and a folder with all provider files.
+
+After that you can run a `terraform plan`. This will show you a summary of all the operations to be made once you apply the infrastructure.
+
+After you review all the plan output, you can simply run `terraform apply`. This will output the plan again and ask for a confirmation. Just type `yes`and the bucket will be created successfully.
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbOTIxODA1NDI2LDEyMjkxMTAyOCwxMDk3MT
+eyJoaXN0b3J5IjpbOTU1MTQxMjA2LDEyMjkxMTAyOCwxMDk3MT
 Q1ODgzLC0xODc5Mjk2NTIsNTY3MzQ0MDMzLC0xODEzNDgxODgz
 LC0xODc1MTg4MzM3XX0=
 -->
