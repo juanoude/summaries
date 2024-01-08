@@ -1,7 +1,7 @@
 # Intro
 ### What is Terraform?
 Terraform is a tool to construct, modify and create infrastructure versions with safety and efficiency through code.
-* InfraStructure as coode (IaC)
+* Infrastructure as code (IaC)
 * Open Source
 * Has versioning
 	* Leverages automation and evolution for the infrastructure;
@@ -24,8 +24,8 @@ Terraform is a tool to construct, modify and create infrastructure versions with
 🚫 Diferent than Ansible, Puppet, Chef and other tools to manage config 🚫
 *Some providers allow those tools along with Terraform*
 
-Terraform has other IaaS competitors. 
+Terraform has other IaaS competitors like CloudFormation. The difference is that those tools only offer support to specific vendors. None of them are agnostic.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwNjkyNTIyODgsLTE4MTM0ODE4ODMsLT
-E4NzUxODgzMzddfQ==
+eyJoaXN0b3J5IjpbMTAzOTE2NTk5MSwtMTgxMzQ4MTg4MywtMT
+g3NTE4ODMzN119
 -->
