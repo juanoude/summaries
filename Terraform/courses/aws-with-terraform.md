@@ -75,9 +75,22 @@ After that you can run a `terraform plan`. This will show you a summary of all t
 
 After you review all the plan output, you can simply run `terraform apply`. This will output the plan again and ask for a confirmation. Just type `yes`and the bucket will be created successfully.
 
+To specify the versions you can add the following to the script:
+```hcl
+terraform {
+	required_version = "1.6.6"
 
+	required_providers {
+		aws = {
+			source = "hashicorp/aws"
+			version = "5.31.0"
+		}
+	}
+}
+```
+Is important to mention that the terraform cli detects some env variables
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyNDM3ODczMCwxMjI5MTEwMjgsMTA5Nz
+eyJoaXN0b3J5IjpbLTcxNTc3MDA4MCwxMjI5MTEwMjgsMTA5Nz
 E0NTg4MywtMTg3OTI5NjUyLDU2NzM0NDAzMywtMTgxMzQ4MTg4
 MywtMTg3NTE4ODMzN119
 -->
