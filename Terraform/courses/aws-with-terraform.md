@@ -24,8 +24,8 @@ Terraform is a tool to construct, modify and create infrastructure versions with
 🚫 Diferent than Ansible, Puppet, Chef and other tools to manage config 🚫
 *Some providers allow those tools along with Terraform*
 
-
+Terraform has other IaaS competitors. 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4MTM0ODE4ODMsLTE4NzUxODgzMzddfQ
-==
+eyJoaXN0b3J5IjpbLTEwNjkyNTIyODgsLTE4MTM0ODE4ODMsLT
+E4NzUxODgzMzddfQ==
 -->
