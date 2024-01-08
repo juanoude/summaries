@@ -10,7 +10,10 @@ Terraform is a tool to construct, modify and create infrastructure versions with
 	* It works on AWS / GCP / Azure
 	* It can deploy to multiple servers simultaneously
 
+### How Terraform works?
+* 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTYwMDI4ODgzNiwtMTg3NTE4ODMzN119
+eyJoaXN0b3J5IjpbLTE5NDQ2MjI5MDAsLTE4NzUxODgzMzddfQ
+==
 -->
