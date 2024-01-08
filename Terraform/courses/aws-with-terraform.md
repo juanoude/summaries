@@ -15,9 +15,13 @@ Terraform is a tool to construct, modify and create infrastructure versions with
 	* Configuration Files (desired state).
 	* The actual state, which is managed by Terraform.
 * **Providers** - The providers expose some resources, this allows the creation of infrastructure in all platforms
-	* IaaS - AWS, GCP, Azure
-	* PaaS - 
+	* IaaS - AWS, GCP, Azure.
+	* PaaS - Kubernetes, Heroku, Digital Ocean.
+	* SaaS - New Relic, Datadog.
+
+### Terraform compare
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTc1MTMxMTAyNCwtMTg3NTE4ODMzN119
+eyJoaXN0b3J5IjpbLTE3MzMyOTU3MDgsLTE4NzUxODgzMzddfQ
+==
 -->
