@@ -26,9 +26,10 @@ Terraform is a tool to construct, modify and create infrastructure versions with
 
 Terraform has other IaaS competitors like CloudFormation. The difference is that those tools only offer support to specific vendors. None of them are agnostic.
 
-####
-https://github.com/chgasparoto/curso-aws-com-terraform
+**Course source code**: https://github.com/chgasparoto/curso-aws-com-terraform
+
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTgwOTIzNjMyNiwtMTgxMzQ4MTg4MywtMT
-g3NTE4ODMzN119
+eyJoaXN0b3J5IjpbNTY3MzQ0MDMzLC0xODEzNDgxODgzLC0xOD
+c1MTg4MzM3XX0=
 -->
