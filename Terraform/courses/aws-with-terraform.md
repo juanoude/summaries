@@ -4,8 +4,12 @@ Terraform is a tool to construct, modify and create infrastructure versions with
 * InfraStructure as coode (IaC)
 * Open Source
 * Has versioning
-	* Either create or alter, it would never create the 
+	* Leverages automation and evolution for the infrastructure;
+	* Either create or alter, it would never create the same resource twice;
+* It is agnostic (AWS /
+
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbOTM4MTQ4NzUwLC0xODc1MTg4MzM3XX0=
+eyJoaXN0b3J5IjpbLTEwNDM4NjE5ODUsLTE4NzUxODgzMzddfQ
+==
 -->
