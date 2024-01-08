@@ -20,8 +20,10 @@ Terraform is a tool to construct, modify and create infrastructure versions with
 	* SaaS - New Relic, Datadog.
 
 ### Terraform vs Other softwares
-#### 🚫 Terraform is a high level 
+**Terraform is a high level tool to orquestrate infrastructure**
+🚫 Diferent than 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODgxMTY2MjY1LC0xODc1MTg4MzM3XX0=
+eyJoaXN0b3J5IjpbLTE3NDQ4NDMwMzAsLTE4NzUxODgzMzddfQ
+==
 -->
