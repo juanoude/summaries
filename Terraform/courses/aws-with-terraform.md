@@ -31,8 +31,10 @@ Terraform has other IaaS competitors like CloudFormation. The difference is that
 # Installation
 **Normal Installation** -> [here](https://developer.hashicorp.com/terraform/install?product_intent=terraform)
 **Version Manager** -> [here](https://github.com/tfutils/tfenv)
+To automatically change terraform versions you just need to create a `.terraform-version` file inside the folder with the version inside, for example, `0.6.16`. *(With version manager only)*
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA5NzE0NTg4MywtMTg3OTI5NjUyLDU2Nz
-M0NDAzMywtMTgxMzQ4MTg4MywtMTg3NTE4ODMzN119
+eyJoaXN0b3J5IjpbMTIyOTExMDI4LDEwOTcxNDU4ODMsLTE4Nz
+kyOTY1Miw1NjczNDQwMzMsLTE4MTM0ODE4ODMsLTE4NzUxODgz
+MzddfQ==
 -->
