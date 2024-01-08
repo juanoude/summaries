@@ -29,8 +29,10 @@ Terraform has other IaaS competitors like CloudFormation. The difference is that
 **Course source code**: https://github.com/chgasparoto/curso-aws-com-terraform
 
 # Installation
-**Normal Installation**: [](https://developer.hashicorp.com/terraform/install?product_intent=terraform)
+**Normal Installation** -> [here](https://developer.hashicorp.com/terraform/install?product_intent=terraform)
+**Version Manager** -> [here](https://github.com/tfutils/tfenv)
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4NzkyOTY1Miw1NjczNDQwMzMsLTE4MT
-M0ODE4ODMsLTE4NzUxODgzMzddfQ==
+eyJoaXN0b3J5IjpbMTA5NzE0NTg4MywtMTg3OTI5NjUyLDU2Nz
+M0NDAzMywtMTgxMzQ4MTg4MywtMTg3NTE4ODMzN119
 -->
