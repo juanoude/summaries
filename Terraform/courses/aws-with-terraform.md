@@ -22,10 +22,10 @@ Terraform is a tool to construct, modify and create infrastructure versions with
 -----
 **Terraform is a high level tool to orquestrate infrastructure. It does NOT manage configuration**
 🚫 Diferent than Ansible, Puppet, Chef and other tools to manage config 🚫
-Some providers allow those tools along with Terraform
+*Some providers allow those tools along with Terraform*
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwODExNTY5NzksLTE4NzUxODgzMzddfQ
+eyJoaXN0b3J5IjpbLTE4MTM0ODE4ODMsLTE4NzUxODgzMzddfQ
 ==
 -->
