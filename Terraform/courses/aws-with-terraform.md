@@ -14,9 +14,10 @@ Terraform is a tool to construct, modify and create infrastructure versions with
 * **Terraform Core** - which has two inputs:
 	* Configuration Files (desired state).
 	* The actual state, which is managed by Terraform.
-* **Providers**
-	* The providers expose some reso
+* **Providers** - The providers expose some resources, this allows the creation of infrastructure in all platforms
+	* IaaS - AWS, GCP, Azure
+	* PaaS - 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjk2MDYzMjU0LC0xODc1MTg4MzM3XX0=
+eyJoaXN0b3J5IjpbMTc1MTMxMTAyNCwtMTg3NTE4ODMzN119
 -->
