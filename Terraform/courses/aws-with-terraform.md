@@ -19,9 +19,9 @@ Terraform is a tool to construct, modify and create infrastructure versions with
 	* PaaS - Kubernetes, Heroku, Digital Ocean.
 	* SaaS - New Relic, Datadog.
 
-### Terraform compare
+### Terraform vs Other softwares
+#### 🚫 Terraform is a high level 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3MzMyOTU3MDgsLTE4NzUxODgzMzddfQ
-==
+eyJoaXN0b3J5IjpbODgxMTY2MjY1LC0xODc1MTg4MzM3XX0=
 -->
