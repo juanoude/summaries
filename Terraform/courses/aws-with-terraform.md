@@ -6,10 +6,11 @@ Terraform is a tool to construct, modify and create infrastructure versions with
 * Has versioning
 	* Leverages automation and evolution for the infrastructure;
 	* Either create or alter, it would never create the same resource twice;
-* It is agnostic (AWS /
+* It is agnostic
+	* It works on AWS / GCP / Azure
+	* It can deploy to multiple servers simultaneously
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwNDM4NjE5ODUsLTE4NzUxODgzMzddfQ
-==
+eyJoaXN0b3J5IjpbLTYwMDI4ODgzNiwtMTg3NTE4ODMzN119
 -->
