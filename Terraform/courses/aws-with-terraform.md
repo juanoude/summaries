@@ -30,7 +30,9 @@ Terraform has other IaaS competitors like CloudFormation. The difference is that
 
 # Installation
 **Normal Installation** -> [here](https://developer.hashicorp.com/terraform/install?product_intent=terraform)
+
 **Version Manager** -> [here](https://github.com/tfutils/tfenv)
+
 To automatically change terraform versions you just need to create a `.terraform-version` file inside the folder with the version inside, for example, `0.6.16`. *(With version manager only)*
 
 After the installation. You should create an user in AWS with programatic access and configure a profile in the CLI:
@@ -75,7 +77,7 @@ After you review all the plan output, you can simply run `terraform apply`. This
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbOTU1MTQxMjA2LDEyMjkxMTAyOCwxMDk3MT
-Q1ODgzLC0xODc5Mjk2NTIsNTY3MzQ0MDMzLC0xODEzNDgxODgz
-LC0xODc1MTg4MzM3XX0=
+eyJoaXN0b3J5IjpbLTEyNDM3ODczMCwxMjI5MTEwMjgsMTA5Nz
+E0NTg4MywtMTg3OTI5NjUyLDU2NzM0NDAzMywtMTgxMzQ4MTg4
+MywtMTg3NTE4ODMzN119
 -->
