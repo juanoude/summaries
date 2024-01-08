@@ -20,9 +20,12 @@ Terraform is a tool to construct, modify and create infrastructure versions with
 	* SaaS - New Relic, Datadog.
 
 -----
-**Terraform is a high level tool to orquestrate infrastructure. It doesn't manage configuration**
-🚫 Diferent than Ansible, Puppet, Chef and other tools
+**Terraform is a high level tool to orquestrate infrastructure. It does NOT manage configuration**
+🚫 Diferent than Ansible, Puppet, Chef and other tools to manage config 🚫
+Some providers allow those tools along with Terraform
+
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODkyNDIxMDYxLC0xODc1MTg4MzM3XX0=
+eyJoaXN0b3J5IjpbLTIwODExNTY5NzksLTE4NzUxODgzMzddfQ
+==
 -->
