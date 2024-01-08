@@ -11,9 +11,12 @@ Terraform is a tool to construct, modify and create infrastructure versions with
 	* It can deploy to multiple servers simultaneously
 
 ### How Terraform works?
+* Terraform Core has two inputs:
+	* Configuration Files (desired state).
+	* The actual state, which is managed by Terraform.
 * 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5NDQ2MjI5MDAsLTE4NzUxODgzMzddfQ
+eyJoaXN0b3J5IjpbLTE5NjQxMTk0MzQsLTE4NzUxODgzMzddfQ
 ==
 -->
