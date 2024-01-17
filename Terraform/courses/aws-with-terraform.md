@@ -108,9 +108,71 @@ Other useful commands are
 * `terraform fmt` - This will format the file according with terraform standards.
 
 ### Variables
+Now you can create a `variables.tf` file and transfer most string values to it:
+```hcl
+variable "aws_region {
+	type = string
+	description = ""
+	default = "eu-central-1"
+}
 
+variable "aws_profile {
+	type = string
+	description = ""
+	default = "terraform"
+}
+
+variable "instance_ami" {
+	type = string
+	description = ""
+	default = "ami-03c3a7e4263fd998c"
+}
+
+variable "instance_type" {
+	type = string
+	description = ""
+	default = "t3.micro"
+}
+
+variable "instance_tags" {
+	type = map(string)
+	description = ""
+	default = {
+		Name = "Ubuntu"
+		Project = "AWS w/ Terraform"
+	}
+}
+```
+
+Also replace the values with the respective variables:
+```hcl
+provider "aws" {
+	region = var.aws_region
+	profile = var.aws_profile
+}
+
+resource "aws_instance" "web" {
+	ami = var.instance_ami
+	instance_type = var.instance_type
+	tags = var.instance_tags
+}
+```
+> If you remove the default values from the variables declarations, and run a terraform command, it will ask you to prompt the values on the terminal.
+> Alternatively you also can declare the variable on the command for example:
+> `TF_VAR_aws_profile=profile_name terraform plan`
+> `terraform plan -var"aws_profile=profile_name" -var="instance_type=t3.medium"`
+
+Another way to declare the variables values is creating a `.tfvars` file:
+```hcl
+# terraform.tfvars
+aws_region = "eu-central-1"
+aws_profile = "terraform"
+instance_ami = "ami-03c3a7e4263fd998c"
+instance_type = "t3.micro"
+```
+This way terraform reads the file automatically and fill the respective values.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTgwMjY1MTc2LDEyMjkxMTAyOCwxMDk3MT
-Q1ODgzLC0xODc5Mjk2NTIsNTY3MzQ0MDMzLC0xODEzNDgxODgz
-LC0xODc1MTg4MzM3XX0=
+eyJoaXN0b3J5IjpbMTU4MDI1NDk5Myw1ODAyNjUxNzYsMTIyOT
+ExMDI4LDEwOTcxNDU4ODMsLTE4NzkyOTY1Miw1NjczNDQwMzMs
+LTE4MTM0ODE4ODMsLTE4NzUxODgzMzddfQ==
 -->
