@@ -74,6 +74,8 @@ func main() {
 	* When the pinger function tries to send a message. It waits until the printer function is ready.
 	* This is known as **block**
 
+### Channel Direction
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5OTAzNjk1NjVdfQ==
+eyJoaXN0b3J5IjpbLTIwNzIwNjkwNzZdfQ==
 -->
