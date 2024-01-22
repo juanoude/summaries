@@ -75,7 +75,43 @@ func main() {
 	* This is known as **block**
 
 ### Channel Direction
+We can specify the direction of the channel, restricting it to just one side of the channeling:
+```go
+// Attribute|feeds the channel| generate entries
+func pinger(c chan<- string) {}
+
+// Receive|process the entries 
+func printer(c <-chan string) {}
+```
+A channel that doesn't have those notations is called a **bidirectional channel**
+
+### Select
+Go has a special instruction called `select`. It functions like a **switch for channels**:
+```go
+for {
+	select {
+	case msg1 :=  <-c1:
+		fmt.Println(msg1)
+	case msg2 :=  <-c2:
+		fmt.Println(msg2)
+	case  <- time.After(time.Second): // Trigger after each second
+		fmt.Println("timeout")
+	default:
+		fmt.Println("nothing ready")
+	}
+}
+```
+> `time.After` creates a channel that sends the current instant
+
+> The default case will execute if none of the channels are ready.
+
+### Channels with Buffer
+It is possible to pass a second parameter when creating a channel:
+```go
+c := make(chan int, 1)
+```
+This defines a buffered channel with size 1. Normally channels are synchronous. **A buffered channel is asynchronous**. Sending or receiving messages will not result in a wait, unless the channel is full. If the channel is full, sending  a message will result in a wait until there is enough space again.
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwNzIwNjkwNzZdfQ==
+eyJoaXN0b3J5IjpbMTY0MjI0MCwtMjA3MjA2OTA3Nl19
 -->
