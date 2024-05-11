@@ -133,8 +133,17 @@ def within(
 ```
 
 ```python
-
+def sqrt(n: float) -> float:
+	return within(
+		e = 0.0001,
+		iterable = repeat(
+			lambda: x: next_(n, x),
+			1.0 # initial aprox value
+		)
+	)
 ```
+
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwMDA5MDM0NDddfQ==
+eyJoaXN0b3J5IjpbOTQxNTQ0ODM5XX0=
 -->
