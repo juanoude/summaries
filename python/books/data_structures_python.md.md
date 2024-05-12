@@ -166,14 +166,14 @@ a = ['data', 'structures',
 'using', 'python', 'happy',
 'learning']
 
-print('data' in a) # 
-print(a)
-print(a + ['New', 'elements'])
-print(a)
-print(a *2)
-print(len(a))
-print(min(a))
+print('data' in a) # True
+print(a + ['New', 'elements']) # ['data', 'structures', 'using', 'python', 'happy', 'learning', 'New', 'elements']
+print(a *2) # ['data', 'structures', 'using', 'python', 'happy', 'learning', 'data', 'structures', 'using', 'python', 'happy', 'learning']
+print(len(a)) # 6
+print(min(a)) # data
 ```
+
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTg1MjA4NzU0NF19
+eyJoaXN0b3J5IjpbLTExMjUwMjQ5ODldfQ==
 -->
