@@ -45,8 +45,70 @@ def squares(n):
 ## So, an amortized analysis is the average performance of each operation in the worst case considering the cost 
 ## of the complete sequence of all the operations.
 
+def example(n):
+    for i in range(n): # O(n)
+        for j in range(n): # O(n)
+            print(f"{i} - {j}") # n * n = O(nˆ2)
 
+def another_example(n): # c1 * n + n * n * c2 -> c1 n + n^2 -> O(n^2)
+    for i in range(n): # O(n)
+        print(i) # c1
+
+    for i in range(n): # O(n)
+        for j in range(n): # O(n)
+            print(f"{i} - {j}") # c2
+
+def log_example(n): # every iteration it cuts n by an expoent of 2 - resulting on log(n)
+    i = 1
+    while i <= n:
+        i = i*2
+        print(i)
+
+def third_example(n): # n/2 * n/2 * log(n) -> O(n^2 log(n))
+    i = 0
+    for i in range(int(n/2), n): # n/2
+        j = 1
+        while j+n/2 <= n: # n/2
+            k =1
+            while k < n: # log(n)
+                k *= 2
+                print(f"{i} - {j} - {k}")
+                j += 1
+
+def exercises(n):
+    i=1
+    while(i<n): # log(n)
+        i *= 2
+        print(i)
+    
+    # i = n
+    # while (i>0): # O(2^n)
+    #     i /= 2
+    #     print(i)
+
+    print("->")
+    for i in range(1,n): # O(n log(n)) 
+        j = 1 # n
+        while(j<n): # log(n)
+            j *= 2
+            print(j)
+
+    print("->")
+    i = 1
+    while(i < n): # O(infinite) -> 1*1 will deadlock
+        i = i**2
+        print(i)
 
 if __name__ == "__main__":
     nums = [2,3,5,8]
     print(squares(nums))
+    example(5)
+    print('-------------------')
+    log_example(10)
+    print('-------------------')
+    third_example(10)
+    print('-------------------')
+    for i in range(5, 10):
+        print(i)
+    print('-------------------')
+    exercises(5)
