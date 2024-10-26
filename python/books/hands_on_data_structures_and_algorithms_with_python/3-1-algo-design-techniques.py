@@ -93,6 +93,43 @@ lookup = [None]*(1000) # Creates a 1000 lenght array with None values
 
 
 ### Quick Sort
+# low -> start index
+# high -> end index
+def quick_sort(unsorted_list, low, high):
+    if low < high:
+        # pi is partitioning index
+        # array[pi] is now at right place
+        pi = partition(unsorted_list, low, high)
+        # sort elements before partition
+        quick_sort(unsorted_list, low, pi-1)
+        # sort elements after partition
+        quick_sort(unsorted_list, pi+1, high)
+
+# this will pick the rightmost element, find its perfect place and put all lesser elements at his left
+# in other words, it pre organizes the left and right lists, while placing the pivot linearly.
+def partition(list, low, high):
+    # choose the rightmost element as pivot
+    pivot = list[high]
+
+    # pointer to indicate the pivot perfect position
+    i = low - 1
+
+    # traverse through all elements
+    # compare each element with pivot
+    for j in range(low, high):
+        if list[j] <= pivot:
+            # If element smaller than pivot is found
+            # swap it with the greater element pointed by i
+            i = i + 1
+
+            # Swapping element at i with element at j
+            (list[i], list[j]) = (list[j], list[i])
+
+    # Swap the pivot element with the greater element specified by i
+    (list[i + 1], list[high]) = (list[high], list[i + 1])
+    return i + 1
+
+
 ### Algorithm for fast multiplication
 ### Strassen's matrix multiplication
 ### Closest pair of points
@@ -130,5 +167,7 @@ if __name__ == "__main__":
         if i > num * 0.95:
             print(memo_fib(i))
     print('----------------')
-
+    unsorted_list = [10, 7, 8, 9, 1, 5]
+    quick_sort(unsorted_list, 0, len(unsorted_list)-1)
+    print(unsorted_list)
     
