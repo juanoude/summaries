@@ -131,6 +131,8 @@ def partition(list, low, high):
 
 
 ### Algorithm for fast multiplication
+
+
 ### Strassen's matrix multiplication
 ### Closest pair of points
 
