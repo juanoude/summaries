@@ -194,4 +194,26 @@ jobs:
       - run: echo ${{ needs.create-new-issue.outputs.issue-num }}
 ```
 
+## Workflow functions
+| Function | Purpose | Usage |
+| :------- | :------ | :---- |
+| contains | string or array | contains(search, item) |
+| startsWith | ... | startsWith(searchString, searchValue) |
+| endsWith | ... | endsWith(searchString, searchValue) |
+| format | replace {0} {1} {2} in given order | format(string, replace1, replace2, ..., replaceN) |
+| join | uses comma as default separator | join(array, optionalSeparator) |
+| toJSON | ... | toJSON(value) |
+| fromJSON | ... | fromJSON(value) |
+| hashFiles | returns a hash for the set of files that matches the specified path | hashFiles(path) |
 
+```yml
+jobs: # printing the context
+  print_to_log:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump Github Context
+        id: github_context
+        run: echo '${{ toJSON(github) }}'
+      - name: Dump Steps Context
+        run: echo '${{ toJSON(steps) }}' 
+```
