@@ -217,3 +217,37 @@ jobs: # printing the context
       - name: Dump Steps Context
         run: echo '${{ toJSON(steps) }}' 
 ```
+*Obs:* secrets will be masked but some sensitive data can still be exposed
+
+## Conditionals and status functions
+```yml
+name: Conditional Example
+on:
+  push:
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/test'
+    steps:
+      - name:
+        if: runner.os != 'Windows'
+        run: echo "The runner's operating system is $RUNNER_OS."
+```
+
+- `success()` -> `true` if none of the earlier steps have been failed or cancelled
+- `always()` -> always proceeds even if the workflow has been cancelled
+- `cancelled()` -> `true` if the workflow is cancelled
+- `failure()` -> `true` if a previous step failed; when used on jobs `true` if a previous job (on the dependency path) failed
+
+*Obs:* `always()` in situations that a critical error can occur, can make the workflow wait till a timeout.
+
+```yml
+create-issue-on-failure:
+  permissions:
+    issues: write
+  needs: [test-run, count-args]
+  if: always() && failure()
+  uses: ./.github/workflows/create-failure-issue.yml
+```
+
