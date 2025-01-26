@@ -130,4 +130,96 @@ To access it you just:
     GITHUB_TOKEN: ${{ github.token }}
 ```
 
+The github token permissions from default to specific overwrite order:
+1. Permissions as set by default for enterprise, organization, or repository
+2. Configuration globally in a workflow
+3. Configuration in a job
+4. Adjusted to read-only if:
+    - Workflow triggered by a pull request from a forked repository
+	- Setting is not selected
 
+to modify perms you can use:
+```yml
+permissions:
+  actions: read|write|none
+  checks: read|write|none
+  contents: read|write|none
+  deployments: read|write|none
+  id-token: read|write|none
+  issues: read|write|none
+  discussions: read|write|none
+  packages: read|write|none
+  pages: read|write|none
+  pull-requests: read|write|none
+  repository-projects: read|write|none
+  security-events: read|write|none
+  statuses: read|write|none
+# If you specify a scope, the ones not included will be set to `none` (minimum amount of privileges)
+```
+You can use on the top-level (workflow globally) or inside an specific job
+
+```yml
+permissions: read-all|write-all # all scopes
+```
+
+```yml
+permissions: {} # none-all
+```
+
+### Untrusted Input / Script Injection
+
+```yml
+jobs:
+    process:
+        runs-on: ubuntu-latest
+        steps:
+            - run: echo ${{ github.event.head_commit_message }}
+            # Congratulations! You just got hacked.
+            # `echo my content > demo.txt; ls -la; printenv;`
+```
+
+Shell script injection is possible because:
+- The run command executes within a temporary shell script on the runner;
+- Before this temporary shell script run, the expressions on ${{ }} are evaluated
+- Then, it substitutes the evaluated values.
+
+Good practices:
+- replacing inline scripts with action calls
+- capture values in an intermediate variable
+
+```yml
+steps:
+    - env:
+        DATA_VALUE: ${{ github.event.head_commit.message }}
+    run: echo $DATA_VALUE # get owned hacker!
+```
+
+### Securing your dependencies
+
+Actions are foreign codes running inside your walls. Keep in mind to:
+- use the principle of the least privilege. Run with the least privileges necessary
+    - this applies also to secrets you create. Not only the github_token
+- verify actions you use
+    - at minimum, you should check the verified creator badge;
+    - review their code;
+    - check for official actions;
+    - check stars numbers;
+- use the best reference
+    - branch: `creator/action-name@main` -> you will get the leading edge, prone to bugs a security issues
+    - tag: `creator/action-name@v#` -> more common way of using it. This will only move on minor versions
+    - hash: `creator/action-name@319sdfj32f7823f92j03fgs8akk` -> safest way
+    - forking the action -> secure, but it takes management to pick up updates, fixes and security improvements.
+
+## Security by Monitoring
+### Scaning
+github has automated scanning funcionality called Dependabot. 
+But you can also pick code security scans easily on the action store
+
+### PR's can open vulnerabilities
+- a good start is to set a CODEOWNERS file
+- preventing write permissions to the target report
+    - if you end up needing it, github has the `pull_request_target` trigger
+    - this runs in the context of the target repo, as oposed to the context of the merge commit
+- preventing secrets access from a external fork
+
+> Several examples of security flaws are present in the book. Check the chapter for details
