@@ -10,7 +10,7 @@ It represents the coefficients of (x + 1)<sup>i</sup> with row i. It sums the tw
 1       5       10      10      5       1
 ```
 
-e.g. row 4 = (x + 1)<sup>4</sup> = x<sup>4</sup> + 4x<sup>3</sup> + 6x<sup>2</sup> + 4x + 1
+e.g. row 4 -> (x + 1)<sup>4</sup> = x<sup>4</sup> + 4x<sup>3</sup> + 6x<sup>2</sup> + 4x + 1
 
 ```java
 public static int[][] pascalTriangle(int n) {

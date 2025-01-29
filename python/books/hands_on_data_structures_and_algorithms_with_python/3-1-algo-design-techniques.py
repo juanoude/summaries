@@ -131,8 +131,6 @@ def partition(list, low, high):
 
 
 ### Algorithm for fast multiplication
-
-
 ### Strassen's matrix multiplication
 ### Closest pair of points
 
@@ -145,8 +143,38 @@ def partition(list, low, high):
 ###
 
 # Greedy Algorithms
-## 
-##
+## Try to get the local optimal solution which generally approximates the globally optimal solution
+## Examples:
+### Traveling Salesman Problem
+### Knapsack Problem
+### Kruskal's minimum spanning tree
+### Prim's minimum spanning tree
+
+### Dijkstra's shortest path
+INFINITY = float('inf')
+DISTANCE = 0 # represents the shortest path column
+PREVIOUS_NODE = 1 # represents the previous node column index
+table = {
+    'A': [0, None],
+    'B': [INFINITY, None],
+    'C': [INFINITY, None],
+    'D': [INFINITY, None],
+    'E': [INFINITY, None],
+    'F': [INFINITY, None],
+}
+
+def get_shortest_distance(table, vertex):
+    shortest_distance = table[vertex][DISTANCE]
+    return shortest_distance
+
+def set_shortest_distance(table, vertex, new_distance):
+    table[vertex][DISTANCE] = new_distance
+
+def set_previous_node(table, vertex, previous_node):
+    table[vertex][PREVIOUS_NODE] = previous_node
+
+def get_distance(graph, first_vertex, second_vertex):
+    return graph[first_vertex][second_vertex]
 
 if __name__ == "__main__":
     print(factorial(4))
