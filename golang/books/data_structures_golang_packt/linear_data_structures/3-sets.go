@@ -23,3 +23,29 @@ func (set *Set) AddElement(element int) {
 func (set *Set) DeleteElement(element int) {
 	delete(set.integerMap, element)
 }
+
+func (set *Set) Intersect(otherSet *Set) *Set {
+	var intersectSet = &Set{}
+	intersectSet.New()
+	for k, _ := range set.integerMap {
+		if otherSet.ContainsElement(k) {
+			intersectSet.AddElement(k)
+		}
+	}
+
+	return intersectSet
+}
+
+func (set *Set) Union(otherSet *Set) *Set {
+	var unionSet = &Set{}
+	unionSet.New()
+	for k, _ := range set.integerMap {
+		unionSet.AddElement(k)
+	}
+
+	for k, _ := range otherSet.integerMap {
+		unionSet.AddElement(k)
+	}
+
+	return unionSet
+}
