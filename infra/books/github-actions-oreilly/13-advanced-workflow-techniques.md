@@ -26,7 +26,7 @@ jobs:
         runs-on:
             outputs:
                 inum: ${{ steps.new-issue.outputs.inum }}
-            
+
             permissions:
                 issues: write
 
@@ -42,5 +42,3 @@ jobs:
                   env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
-
-### 

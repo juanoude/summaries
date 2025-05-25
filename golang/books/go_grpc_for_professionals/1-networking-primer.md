@@ -128,6 +128,7 @@ A unary RPC is an RPC that performs one request and returns one response.
 
 ### Server Streaming
 A server streaming RPC is an RPC that performs one request and returns one or more responses.
+
 ![Server Streaming RPC](./assets/2-server-streaming-grpc-type.png)
 
 - Useful for situations where the client is expecting to get updates from the server.
@@ -143,3 +144,46 @@ HyperText Transfer Protocol 2
       .... 0... = Padded: False
       .... ...0 = End Stream: False
 ```
+
+### Client Streaming
+A client streaming RPC is similar to server streaming, but this time, the client can send one or more
+requests and the server returns one response.
+- Useful when sending real-time information to the server.
+
+![Client Streaming RPC](./assets/3-client-streaming-grpc-type.png)
+
+
+### Bidirectional Streaming
+Mix of server streaming and client streaming. A client can send one or more requests and the server returns one or more responses.
+- Less predictable;
+- There is no defined order;
+
+![Bidirectional Streaming RPC](./assets/4-bidirectional-streaming-grpc-type.png)
+
+
+## Life Cycle of an RPC
+
+> gRPC has multiple implementations in different languages. The original one was in C++ and some implementations are just wrappers around the C++ code. However, gRPC Go is a standalone implementation. This means that it was implemented from scratch in Go and doesn’t wrap up the C++ code. As such, in this section, we are going to talk specifically about gRPC Go, and this might prove to be implemented differently in other implementations.
+
+- We interact with only a few points of the gRPC API;
+- Transport -> The manager of the connection between the actors and it sends/receives raw bytes over the network.
+
+![Lyfe Cycle](5-rpc-life-cycle.png)
+
+*This represents a code being both a server and a client. Sending messages and reading responses.*
+
+### The connection
+- `Dial` create a connection.
+- `dns://` by default.
+- gRPC will create a load balancer based on the configuration:
+  - It has two load balancers as default:
+    1. **Pick first** -> connects to the first address it can connect to, and sends all the RPCs to it;
+    2. **Round robin** -> connects to all the addresses and sends an RPC to each backend one at a time and in order
+
+![Channel vs Subchannel](./assets/6-channel-vs-subchannel.png)
+
+The connection brings two more abstractions:
+- **Channel** -> It's a list of addresses, abstraction for the connection used by RPCs;
+- **Subchannel** -> Abstractions for connections that the load balancer can use to direct the data to one or more backends
+
+![Connection Summary](./assets/7-connection-summary.png)
