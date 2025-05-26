@@ -21,3 +21,24 @@ gRPC is not just another new cool framework that you can disregard as being a fa
 
 Protobuf is the default data schema on gRPC.
 gRPC is described as “Protobuf over HTTP/2.”
+
+To get a feeling of how things look in go, let's look at a simple service in `proto/account.proto`:
+```protobuf
+syntax = "proto3"
+option go_package = "github.com/PacktPublishing/gRPC-Go-for-Professionals";
+
+message Account {
+  uint64 id = 1;
+  string username = 2;
+}
+
+message LogoutRequest {
+  Account account = 1;
+}
+
+message LogoutResponse {}
+
+service AccountService {
+  rpc Logout (LogoutRequest) returns (LogoutResponse);
+}
+```
