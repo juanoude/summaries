@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+option go_package = "go_grpc_proj/proto/dummy/v1";
+
+message DummyMessage {}
+
+service DummyService {}
