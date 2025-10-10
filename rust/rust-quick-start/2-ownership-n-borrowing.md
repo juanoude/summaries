@@ -174,6 +174,155 @@ pub fn set_to_six(value: &mut u32) {
 
 
 
+### Borrowing lifetime
+
+Borrows cannot last longer than the owner lifetime. The Rust compiler doesn't allow that, it has to keep track of the lifetime of every borrow.
+
+The compiler gives us a hint of how long a borrow can exist, for example on `&'static str`. This means a immutable reference to string with a name reference to it's lifetime, all lifetimes names begin with a `'` symbol.
+
+If we call a lifetime `'a`, we can use the same name elsewhere to describe their relationship.
+
+> The static lifetime is special, it's used in data values that are always available, as long as the program is running.
+
+Here is a function that Rust can't safely compile:
+
+```rust	  
+pub fn smaller_x(value1: &Point2D, value2: &Point2D) -> &f64 {
+    if value1.x < value2.x {
+        &value1.x
+    }
+    else {
+        &value2.x
+    }
+}
+```
+
+The problem here is that we are receiving two borrowed parameters in this function, each of which could have a different lifetime.
+
+The compiler doesn't know which parameter the return will be borrowed from or what its lifetime is. Since it can't be sure, the compiler refuses to try.
+
+We can fix it by clarifying the lifetimes used:
+
+```rust
+pub fn smaller_x<'a>(value1: &'a Point2D, value2: &'a Point2D) -> &'a f64 {
+    if value1.x < value2.x {
+        &value1.x
+    }
+    else {
+        &value2.x
+    }
+}
+```
+
+What we are doing here is telling Rust that there is a lifetime equal or shorter than the actual lifetimes of `value1` and `value2`.
+
+Specifying a lifetime name **NEVER** changes the actual lifetime of a borrow. It's just a compatibility notation so the compiler can take decisions.
+
+If we try something like this, the rust compiler will refuse:
+
+```rust
+let main_4 = Point2D {x: 25.0, y: 25.0};
+let smaller;
+{
+    let main_5 = Point2D {x: 50.0, y:50.0};
+    smaller = smaller_x(&main_4, &main_5);
+}
+
+println!("The smaller x is {}", smaller);
+```
+
+Notice the difference in _4 and _5 scopes. Rust looks a the function and sees that the `smaller` returned value (by looking the function definition) is only valid within the lifetimes of both scopes. So trying to use it after the block expression produces a compile error.
+
+
+
+ ## Ownership and the self parameter
+
+- Notice that self doesn't need to be typed;
+  - Because of that the syntax is a little different
+  - `&self` or `&mut self`
+- `self` is either moved/copied, borrowed or mutably borrowed
+
+
+
+### Moving self
+
+```rust
+impl Point2D {
+    pub fn transpose(self) -> Point2D {
+        return Point2D {x: self.y, y: self.x};
+    }
+}
+```
+
+You can say that this consumes the self value. The value is moved to the functions scope. The old variable that used to contain the value is no longer usable.
+
+The value of self is completely gone once this function ends.
+
+In this example it consumes the old value and transforms into something new. Very common in builder patterns.
+
+Any time the value of self will be invalidated by what the function does, it makes sense to move self into the function's scope.
+
+
+
+### Borrowing self
+
+```rust
+impl Point2D {
+    //...
+    pub fn magnitude(&self) -> f64 {
+        return (self.x.powi(2) + self.y.powi(2)).sqrt();
+    }
+}
+```
+
+Immutably borrowing it into a function, giving read-only access to it.
+
+This is most often the correct choice.
+
+
+
+### Mutably borrowing self
+
+```rust
+impl Point2D {
+    //...
+    
+    pub fn unit(&mut self) {
+        let mag = self.magnitude();
+        self.x = self.x / mag;
+        self.y = self.y / mag;
+    }
+}
+```
+
+It needs to change self. This can only happen if self is stored in a mutable variable and the value is also not borrowed anywhere else.
+
+Notice that self is mutable variable and it's able to call a the immutable function `magnitude`. The opposite is not true. Calling unit inside magnitude would throw an error.
+
+Notice that it's a common practice to not return anything or just return a Result in functions that changes self. That's because the real result of the function is updating self in-place.
+
+
+
+# Summary
+
+Ownership is what separates Rust from other languages the most.
+
+It gives us nearly-free automatic memory management.
+
+Borrowing makes use of ownership to solve memory address problems. A super common source of issues in all programming languages.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
